@@ -2,6 +2,8 @@ const express =  require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 
+// Constante des routes
+
 // Variable d'environnement
 require('dotenv').config();
 
@@ -17,12 +19,20 @@ mongoose.connect(`mongodb+srv://${process.env.db_username}:${process.env.db_pass
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-
+// CORS (Cross-Origin Request Sharing)
 app.use((req, res, next) => {
-    res.status(200).json({ message: 'ca marche' });
-})
+// Ce header permet d'accéder à notre API depuis n'importe quelle origine ( '*' )
+    res.setHeader('Access-Control-Allow-Origin', '*');
+// Ce header permet d'ajouter les headers mentionnés aux requêtes envoyées vers notre API (Origin , X-Requested-With , etc.);
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+// Ce header permet d'envoyer des requêtes avec les méthodes mentionnées ( GET ,POST , etc.).    
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    next();
+});
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+
+// Les routes
 
 module.exports = app;
