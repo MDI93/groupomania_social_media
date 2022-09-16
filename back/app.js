@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 
 // Constante des routes
+const userRoutes = require('./routes/user');
 
 // Variable d'environnement
 require('dotenv').config();
@@ -34,5 +35,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 // Les routes
+app.use('/api/authorize', userRoutes);
+
 
 module.exports = app;
