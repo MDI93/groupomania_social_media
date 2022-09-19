@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
         const token = req.headers.authorization.split(' ')[1];
         const decodedToken = jwt.verify(token, `${process.env.token_key}`);
         const userId = decodedToken.userId;
-            req.authorise = {
+            req.auth = {
                 userId: userId
             };
         next();

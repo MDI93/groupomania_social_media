@@ -4,6 +4,7 @@ const morgan = require('morgan');
 
 // Constante des routes
 const userRoutes = require('./routes/user');
+const postsRoutes = require('./routes/posts');
 
 // Variable d'environnement
 require('dotenv').config();
@@ -35,7 +36,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 // Les routes
-app.use('/api/authorize', userRoutes);
+app.use('/api/auth', userRoutes);
+app.use('/api/posts', postsRoutes);
 
 
 module.exports = app;
