@@ -18,7 +18,6 @@ exports.signup = (req, res, next) => {
                 email: emailCryptoJs,
                 password: hash
             })
-            console.log("-- email & mdp crypté -->", user)
             user.save()
                 .then(() => res.status(201).json({ message: 'New account has been created !'}))
                 .catch((error) => res.status(401).json({ error }));
