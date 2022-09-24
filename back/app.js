@@ -38,6 +38,7 @@ app.use(express.json());
 // Les routes
 app.use('/api/auth', userRoutes);
 app.use('/api/posts', postsRoutes);
+app.use('/images', express.static('images'));
 
 
 module.exports = app;

@@ -23,16 +23,20 @@ const postsSchema = mongoose.Schema({
         maxLength: 300
     },
     likes: {
-        type: String, 
+        type: Number,
+        default: 0 
     },
     usersLiked: {
         type:[String], 
+        required: true
     },
     dislikes: {
-        type: String, 
+        type: Number, 
+        default: 0
     },
     usersdisLiked: {
         type:[String],
+        required: true
     }
 },
 {

@@ -87,8 +87,9 @@ exports.likeOrDislike = (req, res, next) => {
 // Si like = 1, l'utilisateur aime (= like) la sauce       
     if( req.body.like === 1 ){
     Posts.updateOne(
-        { _id: req.params.id }, 
-        { $inc:{ likes: 1 }, $push: { usersLiked: req.body.userId }}
+        {   _id: req.params.id  }, 
+        {   $inc:{ likes: 1 }, 
+            $push: { usersLiked: req.body.userId    }}
         )
         .then(() => res.status(201).json({ message: 'Like has been added !' }))  
         .catch(error => res.status(400).json({ error }));
@@ -96,8 +97,9 @@ exports.likeOrDislike = (req, res, next) => {
 // Si like = -1, l'utilisateur n'aime pas (=dislike) la sauce       
     } else if( req.body.like === -1 ) {
     Posts.updateOne(
-        { _id: req.params.id }, 
-        { $inc:{ dislikes: 1 }, $push: { usersDisliked: req.body.userId }}
+        {   _id: req.params.id  }, 
+        {   $inc:{ dislikes: 1 }, 
+            $push: { usersDisliked: req.body.userId }}
         )
         .then(() => res.status(201).json({ message: 'Dislike has been added !' }))  
         .catch(error => res.status(400).json({ error }));
@@ -107,15 +109,17 @@ exports.likeOrDislike = (req, res, next) => {
         .then((likeThumbs) => {
         if(likeThumbs.usersLiked.includes(req.body.userId) && req.body.like === 0){
             Posts.updateOne(
-            { _id: req.params.id }, 
-            { $inc:{ likes: -1 }, $pull: { usersLiked: req.body.userId }}
+            {   _id: req.params.id  }, 
+            {   $inc:{ likes: -1 }, 
+                $pull: { usersLiked: req.body.userId    }}
             )
             .then(() => res.status(201).json({ message: 'Like has been canceled !' }))  
             .catch(error => res.status(400).json({ error }));
         } else if(likeThumbs.usersDisliked.includes(req.body.userId) && req.body.like === 0) {
             Posts.updateOne(
-            { _id: req.params.id }, 
-            { $inc:{ dislikes: -1 }, $push: { usersDisliked: req.body.userId }}
+            {   _id: req.params.id  }, 
+            {   $inc:{ dislikes: -1 }, 
+                $push: { usersDisliked: req.body.userId }}
             )
             .then(() => res.status(201).json({ message: 'Dislike has been canceled !' }))  
             .catch(error => res.status(400).json({ error }));
