@@ -13,10 +13,9 @@ const postsSchema = mongoose.Schema({
         type: String, 
         required: true
     },
-        image: {
-            type: String, 
-            required: true
-        },
+    image: {
+        type: String
+    },
     message: {  
         type: String, 
         required: true,
@@ -27,16 +26,14 @@ const postsSchema = mongoose.Schema({
         default: 0 
     },
     usersLiked: {
-        type:[String], 
-        required: true
+        type:[String]
     },
     dislikes: {
         type: Number, 
         default: 0
     },
-    usersdisLiked: {
-        type:[String],
-        required: true
+    usersDisliked: {
+        type:[String]
     }
 },
 {

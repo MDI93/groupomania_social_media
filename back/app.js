@@ -1,6 +1,7 @@
 const express =  require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const path = require('path');
 
 // Constante des routes
 const userRoutes = require('./routes/user');
@@ -38,7 +39,7 @@ app.use(express.json());
 // Les routes
 app.use('/api/auth', userRoutes);
 app.use('/api/posts', postsRoutes);
-app.use('/images', express.static('images'));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
 module.exports = app;
