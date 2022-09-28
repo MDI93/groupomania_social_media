@@ -11,17 +11,15 @@ exports.getAllPosts = (req, res, next) => {
 // Créer un 'post' (CREATE)
 exports.createPost = async (req, res, next) => {
     const postObject = req.body.post
-    // delete postObject._id;
-    // delete postObject.userId;
+    delete postObject._id;
+    delete postObject.userId;
 
     const newPost = new Posts ({
         ...postObject,
         userId: req.auth.userId,
-        //image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
         likes: 0,
-        dislikes: 0,
-        usersLiked: [' '],
-        usersdisLiked: [' ']
+        usersLiked: [' ']
     });
 
     try{
@@ -82,44 +80,29 @@ exports.deletePost = (req, res, next) => {
         .catch( error => res.status(500).json({ error }));
 };
 
-// Ajouter/Annuler un 'like'
-exports.likeOrDislike = (req, res, next) => {
+// Ajouter un 'like'
+exports.likePost = (req, res, next) => {
     Posts.findOne({ _id: req.params.id })
-        .then((likeOrNot) => {
+        .then((likeAdd) => {
 // Si like = 1, l'utilisateur aime (= like) le post              
-        if( !likeOrNot.usersLiked.includes(req.body.userId) && req.body.like === 1 ){
+        if( !likeAdd.usersLiked.includes(req.body.userId) && req.body.like === 1 ){
             Posts.updateOne(
             { _id: req.params.id }, 
             { $inc:{ likes: 1 }, $push: { usersLiked: req.body.userId }})
             .then(() => res.status(201).json({ message: 'Like has been added !' }))  
             .catch(error => res.status(400).json({ error }));         
-        } 
-// Si like = -1, l'utilisateur n'aime pas (=dislike) le 'post'           
-        else if( !likeOrNot.usersDisliked.includes(req.body.userId) && req.body.like === -1 ){
-            Posts.updateOne(
-            { _id: req.params.id }, 
-            { $inc:{ dislikes: 1 }, $push: { usersDisliked: req.body.userId }})
-            .then(() => res.status(201).json({ message: 'Dislike has been added !' }))  
-            .catch(error => res.status(400).json({ error }));
-        }   
-// Si like = 0, l'utilisateur annule son 'like' ou son 'dislike'     
+        }  
+// Si like = 0, l'utilisateur annule son 'like'   
     else {
     Posts.findOne({ _id: req.params.id })
         .then((likeCanceled) => {
-        if(likeCanceled.usersLiked.includes(req.body.userId) && req.body.like === 0){
+        if( likeCanceled.usersLiked.includes(req.body.userId) && req.body.like === 0 ){
             Posts.updateOne(
             { _id: req.params.id }, 
             { $inc:{ likes: -1 }, $pull: { usersLiked: req.body.userId }}
             )
             .then(() => res.status(201).json({ message: 'Like has been canceled !' }))  
             .catch(error => res.status(400).json({ error }));
-        } else if(likeCanceled.usersDisliked.includes(req.body.userId) && req.body.like === 0) {
-            Posts.updateOne(
-            { _id: req.params.id }, 
-            { $inc:{ dislikes: -1 }, $push: { usersDisliked: req.body.userId }}
-            )
-            .then(() => res.status(201).json({ message: 'Dislike has been canceled !' }))  
-            .catch(error => res.status(400).json({ error }));
-        }})
+    }})
         .catch(error => res.status(404).json({ error }));
     }})};

@@ -27,13 +27,6 @@ const postsSchema = mongoose.Schema({
     },
     usersLiked: {
         type:[String]
-    },
-    dislikes: {
-        type: Number, 
-        default: 0
-    },
-    usersDisliked: {
-        type:[String]
     }
 },
 {
