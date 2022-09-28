@@ -1,0 +1,16 @@
+.grpmania-banner {
+    color: black;
+    background-color: #4E5166;
+    text-align: center;
+    text-shadow: 2px 2px #b1a9a9;
+    border-top: solid 15px #FFD7D7;
+    border-left: solid 15px #4E5166;
+    border-right: solid 15px #4E5166;
+    border-bottom: solid 15px #FD2D01;
+    height: 100px;
+}
+
+.grpmania-logo {
+    height: 110px;
+	width: 110px;
+}
