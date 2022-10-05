@@ -5,13 +5,16 @@ import {
     Route
     //Navigate
   } from 'react-router-dom';
-import Home from '../../pages/Home';
 import Auth from '../../pages/Auth';
+import Navbar from '../../components/Navbar'
+import Home from '../../pages/Home';
 import NewPost from '../../pages/Post';
+
 
 function IndexRoutes() {
     return(
         <Router>
+            <Navbar />
             <Routes>
                 <Route path='/' element={<Auth />} />
                 <Route path='/home' element={<Home />} />
