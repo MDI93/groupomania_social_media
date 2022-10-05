@@ -1,7 +1,6 @@
-import './App.css';
 import IndexRoutes from './components/Routes/index'
 
-function App() {
+const App = () => {
   return (
     <div>
       <IndexRoutes />
