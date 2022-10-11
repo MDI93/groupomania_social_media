@@ -1,29 +1,36 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Logo from '../assets/Logos/icon-left-font-monochrome-black.svg'
 import styled from "styled-components";
 import { NavLink } from 'react-router-dom';
+import Logout from './Log/Logout';
+import { AuthUserContext } from '../context/UserContext';
 // import { AuthContext } from './AuthContext';
 
 const Navbar = () => {
+    const authId = useContext(AuthUserContext);
+    const isLoggedIn = authId.isLoggedIn;
+
     return(
         <StyledNav>
-            <NavLink exact to='/home'>
+            <NavLink exact="true" to={'/home'}>
                 <StyledLogo src={Logo} alt="Logo de l'entreprise Groupomania" />
             </NavLink>
+            {isLoggedIn && 
             <StyledUl>
                 <StyledLi>
-                    <StyledNavLink exact to='/home'>
+                    <StyledNavLink exact= "true" to={'/home'}>
                         <h3>Accueil</h3>
                     </StyledNavLink>
                 </StyledLi>
                 <StyledLi>
-                    <StyledNavLink exact to='/newpost'>
+                    <StyledNavLink exact="true" to={'/newpost'}>
                         <h3>Créer un post</h3>
                     </StyledNavLink>
                 </StyledLi>
             </StyledUl>
-                <StyledNavLink exact to='/'>
-                    <h3>Se déconnecter</h3>
+            }
+                <StyledNavLink exact="true" to='/'>
+                    <Logout />
                 </StyledNavLink>
         </StyledNav>
     )

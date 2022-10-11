@@ -3,10 +3,11 @@ import { Navigate } from "react-router-dom";
 import { AuthUserContext } from "../context/UserContext";
 
 export default function NewPost () {
-    const { authId } = useContext(AuthUserContext);
+    const authId = useContext(AuthUserContext);
+    const isLoggedIn = authId.isLoggedIn
     console.log("home", authId);
 
-    if(!authId) {
+    if(!isLoggedIn) {
         return <Navigate to='/' />
     }
 

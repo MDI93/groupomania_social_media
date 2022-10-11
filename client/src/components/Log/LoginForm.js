@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import { AuthUserContext } from "../../context/UserContext";
-// import { Navigate } from "react-router-dom";
 
 // Constante pour envoyer le formulaire 'Se connecter' vers l'API
 const LoginForm = () => {
@@ -38,7 +37,7 @@ const LoginForm = () => {
             if(response.ok) {
                 setData(responseData);
                 authId.login(responseData);
-                // navigate('/home')
+                navigate('/home')
                 console.log(data)
             } else {
                 setErrorEmailPassword(responseData.error);  

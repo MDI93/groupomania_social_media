@@ -1,26 +1,22 @@
-import React from "react";
-import Logo from '../assets/Logos/icon-left-font-monochrome-black.svg'
-import styled from "styled-components";
+import React, { useContext } from "react";
+import { Navigate } from "react-router-dom";
+import Thread from "../components/Thread";
+import { AuthUserContext } from "../context/UserContext";
 
-function Home() {
+export default function Home() {
+    const authId = useContext(AuthUserContext)
+    const isLoggedIn = authId.isLoggedIn
+    console.log("home", isLoggedIn);
+
+    if(!isLoggedIn) {
+        return <Navigate to='/' />
+    }
+
     return( 
-        <div>
-            <StyledHeader>
-                    <StyledLogo src={Logo} alt="Logo de l'entreprise Groupomania" />
-            </StyledHeader> 
+        <div className="home">
+            <Thread />
         </div>
     )
 }
 
-const StyledHeader = styled.span`
-    display: flex;
-    justify-content: center;
-    margin-bottom: 100px;
-`
-const StyledLogo = styled.img`
-    height: 30px;
-    padding: 15px;
-    display: flex;
-`
 
-export default Home;
