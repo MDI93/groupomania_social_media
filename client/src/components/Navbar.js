@@ -6,28 +6,26 @@ import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
     return(
-        <nav>
-        <NavLink exact to='/home'>
-            <StyledLogo src={Logo} alt="Logo de l'entreprise Groupomania" />
-        </NavLink>
         <StyledNav>
+            <NavLink exact to='/home'>
+                <StyledLogo src={Logo} alt="Logo de l'entreprise Groupomania" />
+            </NavLink>
             <StyledUl>
                 <StyledLi>
-                <StyledNavLink exact to='/home'>
-                    <h3>Accueil</h3>
-                </StyledNavLink>
+                    <StyledNavLink exact to='/home'>
+                        <h3>Accueil</h3>
+                    </StyledNavLink>
                 </StyledLi>
                 <StyledLi>
-                <StyledNavLink exact to='/newpost'>
-                    <h3>Créer un post</h3>
-                </StyledNavLink>
+                    <StyledNavLink exact to='/newpost'>
+                        <h3>Créer un post</h3>
+                    </StyledNavLink>
                 </StyledLi>
             </StyledUl>
-            <StyledNavLink exact to='/'>
-                <h3>Se déconnecter</h3>
-            </StyledNavLink>
+                <StyledNavLink exact to='/'>
+                    <h3>Se déconnecter</h3>
+                </StyledNavLink>
         </StyledNav>
-        </nav>
     )
 }  
 
@@ -42,11 +40,17 @@ const StyledNav = styled.span`
 const StyledUl = styled.ul`
     list-style-type: none;
     align-items: center;
+    justify-content: center;
     height: 30px;
     display: flex;
 `
 const StyledLi = styled.li`
-    margin-right: 20px;
+    display: flex;
+    margin-left: 20px;
+    :hover {
+        color: #FFD7D7;
+        transform: scale(1.1)
+    }
 `
 const StyledNavLink = styled(NavLink)`
     text-decoration: none;
