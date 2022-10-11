@@ -8,7 +8,7 @@ import {
 import Auth from '../../pages/Auth';
 import Navbar from '../../components/Navbar'
 import Home from '../../pages/Home';
-import NewPost from '../../pages/Post';
+import NewPost from '../../pages/NewPost';
 
 
 function IndexRoutes() {
