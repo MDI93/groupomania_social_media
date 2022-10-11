@@ -5,8 +5,8 @@ import LoginForm from "./LoginForm";
 import styled from "styled-components";
 
 const IndexLog = () => {
-    const [signUpModal, setSignUpModal] = useState(true);
-    const [loginModal, setLoginModal] = useState(false);
+    const [signUpModal, setSignUpModal] = useState(false);
+    const [loginModal, setLoginModal] = useState(true);
 
     const handleModals = (e) => {
         if(e.target.id === 'signUp'){
@@ -22,7 +22,7 @@ const IndexLog = () => {
         <div className="connection-form">
             <div className="form-container">
                 <StyledNav>
-                    <StyledLink onClick={handleModals} id="signUp">S'inscrire</StyledLink>
+                    <StyledLink onClick={handleModals} id="signUp">S'enregistrer</StyledLink>
                     <StyledLink onClick={handleModals} id="login">Se connecter</StyledLink>
                 </StyledNav>
                 <CardLog>
@@ -53,6 +53,7 @@ const StyledLink = styled(Link)`
     width: 150px;
     background-color: #5555;
     border-radius: 20px 20px;
+    box-shadow: 2px 2px 10px grey;
     :hover {
         color: #FFD7D7;
         transform: scale(1.1)
@@ -66,7 +67,7 @@ const CardLog = styled.span`
     color: #8186a0;
     text-decoration: none;
     font-size: 18px;
-    height: 280px
+    height: 300px;
 `
 
 export default IndexLog;

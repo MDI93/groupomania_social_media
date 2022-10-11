@@ -1,22 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Axios from "axios";
+import axios from "axios";
 import LoginForm from "./LoginForm";
 
 function SignUpForm() {
     const [formSubmit, setFormSubmit] = useState(false);
-    const [error, setError] = useState(false);
+    // const [error, setError] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorEmail, setErrorEmail] = useState(false);
 
     const handleSignUp = (event) => {
         event.preventDefault();
-        const emailError = document.querySelector('errorEmail');
-        const passwordError = document.querySelector('errorPassword')
         
-       Axios({
+       axios({
             method: "post",
-            url: `http://localhost:5000/api/auth/signup`,
+            url: `http://localhost:4000/api/auth/signup`,
             data: {
                 email,
                 password
@@ -24,9 +23,8 @@ function SignUpForm() {
         })
         .then((res) => {
             console.log(res)
-            if(res.data.errors) {
-                emailError.innerHTML = res.data.error.email;
-                passwordError.innerHTML = res.data.error.password;
+            if(res.error) {
+                setErrorEmail(res.error)
             } else {
                 setFormSubmit(true);
             }
@@ -39,33 +37,33 @@ function SignUpForm() {
             {formSubmit ? (
             <>    
                 <LoginForm />
-                <StyledSuccess className="success">Bravo, vous êtes inscrit, veuillez-vous connecter</StyledSuccess>
+                <StyledSuccess className="success">Bravo! vous êtes inscrit, veuillez-vous connecter.</StyledSuccess>
             </>    
             ) : (
         <StyledForm action="" onSubmit={handleSignUp} id="signup-form">
             <label htmlFor="email">Créer un nouveau compte</label>
             <br />
+            <label htmlFor="email">Adresse e-mail</label>
             <StyledInput 
                 type="text" 
                 name="email" 
-                placeholder="  Adresse e-mail"
                 id="email" 
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
             />
-            <div className="email-error"></div>
             <br />
+            <label htmlFor="email">Mot de passe</label>
             <StyledInput 
                 type="password" 
                 name="password" 
-                placeholder="  Mot de passe"
                 id="password" 
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
             />
-            <div className="password-error"></div>
             <br />
-            <StyledBtn type="submit" value="S'inscrire" />  
+            <StyledBtn type="submit" value="S'enregistrer" />  
+            {errorEmail && 
+            <StyledError>Adresse e-mail et/ou mot de passe incorrect(s)</StyledError>}
         </StyledForm>
         )}
         </>
@@ -82,6 +80,7 @@ const StyledForm = styled.form`
     font-size: 18px;
     width: 400px;   
     border-radius: 20px 20px;
+    box-shadow: 2px 2px 10px grey;
 `
 const StyledInput = styled.input`
     width: 60%;
@@ -100,6 +99,11 @@ const StyledBtn = styled.input`
         cursor: pointer;
   	    transform: scale(1.08);
     } 
+`
+const StyledError = styled.span`
+    color: red;
+    padding-bottom:5px;
+    font-size: 14px;
 `
 const StyledSuccess = styled.span`
     color: green;

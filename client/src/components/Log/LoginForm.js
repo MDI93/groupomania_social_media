@@ -1,63 +1,83 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
-import Axios from "axios";
+import { AuthUserContext } from "../../context/UserContext";
+// import { Navigate } from "react-router-dom";
 
 // Constante pour envoyer le formulaire 'Se connecter' vers l'API
 const LoginForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+    const [data, setData] = useState();
+    const [errorEmailPassword, setErrorEmailPassword] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
+    const authId = useContext(AuthUserContext);
+    const navigate = useNavigate();
+    
+    console.log("token",authId)
     const handleLogin = (event) => {
-        console.log(email)
         event.preventDefault();
-        const emailError = document.querySelector('errorEmail');
-        const passwordError = document.querySelector('errorPassword');
-
-       Axios({
-            method: "post",
-            url: `http://localhost:5000/api/auth/login`,
-            data: {
-                email,
-                password
-            }
-        })
-        .then((res) => {
-            console.log(res)
-            if(res.data.error) {
-                emailError.innerHTML = res.data.error;
-                passwordError.innerHTML = res.data.error;
+    
+    setIsLoading(true)    
+    
+    const url = "http://localhost:4000/api/auth/login"
+    const fetchPost = async () => {
+        try{
+            const response = await fetch(url, {
+                method: "POST",
+                body: JSON.stringify ({
+                    email: email,
+                    password: password
+                }),
+                headers: {
+                    "Content-type" : "application/json"
+                }
+            })
+    setIsLoading(false)        
+            const responseData = await response.json();
+            if(response.ok) {
+                setData(responseData);
+                authId.login(responseData);
+                // navigate('/home')
+                console.log(data)
             } else {
-                //stocker le token
-                window.location = '/home';
-            }
-        })
-        .catch((error) => console.log(error))
+                setErrorEmailPassword(responseData.error);  
+            }  
+        } catch(error) {
+            console.log(error)
+        }
+    }
+    fetchPost();
+}
+
+    const errorHandler = () => {
+        setErrorEmailPassword(null)
     }
 
     return(
         <StyledForm onSubmit={handleLogin}>
-            <label htmlFor="login">Déjà inscrit</label>
+            <label htmlFor="login">Déjà enregistrer</label>
             <br />
+            <label htmlFor="email">Adresse e-mail</label>
             <StyledInput 
                 type="text" 
-                name="email" 
-                placeholder="  Adresse e-mail"
+                name="email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-            />
-            <StyledError className="errorEmail"></StyledError>
+            />    
             <br />
+            <label htmlFor="email">Mot de passe</label>
             <StyledInput
                 type="password" 
                 name="password" 
-                placeholder="  Mot de passe"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
             />
-            <StyledError className="errorPassword"></StyledError>
             <br />
             <StyledBtn type="submit" value="Se connecter" />
-            <div><span></span></div>
+            {errorEmailPassword && 
+            <StyledError>Adresse e-mail et/ou mot de passe incorrect(s)</StyledError>}
+            {isLoading && <p>En cours de chargement...</p>}
         </StyledForm>
     )
 }
@@ -73,6 +93,7 @@ const StyledForm = styled.form`
     font-size: 18px;
     width: 400px;
     border-radius: 20px 20px;
+    box-shadow: 2px 2px 10px grey;
 `
 const StyledInput = styled.input`
     width: 60%;
@@ -93,40 +114,8 @@ const StyledBtn = styled.input`
 `
 const StyledError = styled.span`
     color: red;
-    font-size: 12px;
+    padding-bottom:5px;
+    font-size: 14px;
 `
 
 export default LoginForm;
-
-// const handleSubmit = (props) => {
-    //     fetch(`http://localhost:3000/api/auth/login`,{
-    //         method: "POST",
-    //         headers:{
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({
-    //             "email": email,
-    //             "password": password
-    //         })
-    //     })
-    //         .then((response) => response.json()
-    //         .then((response) => window.location = '/home')
-    //         .catch((error) => console.log(error))
-    // )}
-
-    // useEffect(() => {
-    //     fetch(`http://localhost:3001/api/auth/login`,{
-    //         method: 'POST',
-    //         body: JSON.stringify(data)
-    //     })
-    //     .then((response) => response.json())
-    //     .then(({ email }) => {
-    //     setEmail(email)
-    //     })
-    // }, [])
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     console.log('Envoyé')
-    // }
