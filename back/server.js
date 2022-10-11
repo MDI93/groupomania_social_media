@@ -14,7 +14,7 @@ const normalizePort = val => {
   }
   return false;
 };
-const port = normalizePort(process.env.PORT || '5000');
+const port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
 
 // La fonction errorHandler  recherche les différentes erreurs et les gère de manière appropriée. 
