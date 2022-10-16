@@ -1,7 +1,7 @@
 import React, { createContext, useState } from 'react';
 
 const defaultValue = {
-  token: "",
+  auth: "",
   userIsLoggedIn: false,
   login: () => {},
   logout: () => {}
@@ -9,22 +9,27 @@ const defaultValue = {
 
 export const AuthUserContext = createContext(defaultValue);
 
+const tokenStorage = localStorage.getItem('token');
+
 export const AuthUserProvider = (props) => {
 
-  const [authedToken, setAuthedToken] = useState(null);
-  
+  const [authedToken, setAuthedToken] = useState(tokenStorage);
+
   const login = (authedToken) => {
-    setAuthedToken(authedToken) 
+    setAuthedToken(authedToken);
+    localStorage.setItem("token", authedToken.token);
   }
 
   const logout = () => {
-    setAuthedToken(null)
+    setAuthedToken(null);
+    localStorage.clear();
   }
 
   const userIsLoggedIn = !!authedToken;
   console.log(userIsLoggedIn)
+
   const authId = {
-    token: authedToken,
+    auth: authedToken,
     isLoggedIn: userIsLoggedIn,
     login: login,
     logout: logout

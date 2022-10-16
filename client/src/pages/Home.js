@@ -1,22 +1,48 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import { Navigate } from "react-router-dom";
-import Thread from "../components/Thread";
 import { AuthUserContext } from "../context/UserContext";
+import Thread from "../components/Thread";
 
 export default function Home() {
     const authId = useContext(AuthUserContext)
     const isLoggedIn = authId.isLoggedIn
-    console.log("home", isLoggedIn);
+    const [data, setData] = useState([]);
 
-    if(!isLoggedIn) {
-        return <Navigate to='/' />
-    }
+    const url = "http://localhost:4000/api/posts/";
+
+    const fetchData = useCallback(async() => {
+      try{
+        const response = await fetch(url, {
+          method: "GET",
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${authId.auth.token}`
+            }
+        });
+        const responseData = await response.json({});
+          if(response.ok){
+            setData({
+              data: responseData
+            }) 
+          } else {
+            throw new Error(responseData.error);
+          }
+      } catch(error) {
+        console.log("error", error);
+      }},[authId.auth, url]);   
+        
+    useEffect(() => { 
+      if(isLoggedIn){
+        fetchData()
+      };
+    }, [isLoggedIn, fetchData])
 
     return( 
-        <div className="home">
-            <Thread />
-        </div>
+        <>
+          {!isLoggedIn && <Navigate to='/' replace="true"/>}
+          {isLoggedIn && (
+            <Thread data={data}/>
+          )}
+        </>
     )
 }
-
-
