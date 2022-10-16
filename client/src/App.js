@@ -1,10 +1,8 @@
 import IndexRoutes from './components/Routes/index'
 import styled from 'styled-components';
-import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
+
 
 const App = () => {
-  // const dispatch = useDispatch()
   return (
     <StyledBody>
       <IndexRoutes />

@@ -7,7 +7,7 @@ const Logout = () => {
     const authId = useContext(AuthUserContext);
     const isLoggedIn = authId.isLoggedIn;
     return(
-        <div>
+        <>
         {isLoggedIn &&
                 <Link onClick={authId.logout}>
                     <StyledDiv>
@@ -15,7 +15,7 @@ const Logout = () => {
                     </StyledDiv>   
                 </Link>
             }
-        </div>
+        </>
     )
 }
 

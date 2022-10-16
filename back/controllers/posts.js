@@ -10,7 +10,7 @@ exports.getAllPosts = (req, res, next) => {
 
 // Créer un 'post' (CREATE)
 exports.createPost = async (req, res, next) => {
-    const postObject = req.body.post
+    const postObject = req.body.post;
     delete postObject._id;
     delete postObject.userId;
 

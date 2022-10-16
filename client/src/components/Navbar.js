@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { NavLink } from 'react-router-dom';
 import Logout from './Log/Logout';
 import { AuthUserContext } from '../context/UserContext';
-// import { AuthContext } from './AuthContext';
+
 
 const Navbar = () => {
     const authId = useContext(AuthUserContext);
@@ -18,7 +18,7 @@ const Navbar = () => {
             {isLoggedIn && 
             <StyledUl>
                 <StyledLi>
-                    <StyledNavLink exact= "true" to={'/home'}>
+                    <StyledNavLink exact="true" to={'/home'}>
                         <h3>Accueil</h3>
                     </StyledNavLink>
                 </StyledLi>
@@ -29,9 +29,9 @@ const Navbar = () => {
                 </StyledLi>
             </StyledUl>
             }
-                <StyledNavLink exact="true" to='/'>
-                    <Logout />
-                </StyledNavLink>
+            <StyledNavLink exact="true" to='/'>
+                <Logout />
+            </StyledNavLink>
         </StyledNav>
     )
 }  
