@@ -34,11 +34,12 @@ function SignUpForm() {
 
     return(
         <>
-            {formSubmit ? (
-            <>    
-                <LoginForm />
-                <StyledSuccess className="success">Bravo! vous êtes inscrit, veuillez-vous connecter.</StyledSuccess>
-            </>    
+        {formSubmit ? (
+        <>    
+            <LoginForm />
+            {alert("Bravo! vous êtes inscrit, veuillez-vous connecter.")}
+            {/* <StyledSuccess className="success">Bravo! vous êtes inscrit, veuillez-vous connecter.</StyledSuccess> */}
+        </>    
             ) : (
         <StyledForm action="" onSubmit={handleSignUp} id="signup-form">
             <label htmlFor="email">Créer un nouveau compte</label>

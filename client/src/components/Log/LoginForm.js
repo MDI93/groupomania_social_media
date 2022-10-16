@@ -13,7 +13,6 @@ const LoginForm = () => {
     const authId = useContext(AuthUserContext);
     const navigate = useNavigate();
     
-    console.log("token",authId)
     const handleLogin = (event) => {
         event.preventDefault();
     
@@ -37,8 +36,8 @@ const LoginForm = () => {
             if(response.ok) {
                 setData(responseData);
                 authId.login(responseData);
-                navigate('/home')
-                console.log(data)
+                navigate('/home', {replace: true})
+                console.log("response data", responseData)
             } else {
                 setErrorEmailPassword(responseData.error);  
             }  
@@ -48,10 +47,11 @@ const LoginForm = () => {
     }
     fetchPost();
 }
+    
 
-    const errorHandler = () => {
-        setErrorEmailPassword(null)
-    }
+    // const errorHandler = () => {
+    //     setErrorEmailPassword(null)
+    // }
 
     return(
         <StyledForm onSubmit={handleLogin}>
