@@ -38,7 +38,6 @@ function SignUpForm() {
         <>    
             <LoginForm />
             {alert("Bravo! vous êtes inscrit, veuillez-vous connecter.")}
-            {/* <StyledSuccess className="success">Bravo! vous êtes inscrit, veuillez-vous connecter.</StyledSuccess> */}
         </>    
             ) : (
         <StyledForm action="" onSubmit={handleSignUp} id="signup-form">
@@ -105,9 +104,6 @@ const StyledError = styled.span`
     color: red;
     padding-bottom:5px;
     font-size: 14px;
-`
-const StyledSuccess = styled.span`
-    color: green;
 `
 
 
