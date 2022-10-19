@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import { dateParser } from "../Routes/utils";
+import DeleteButton from "./DeleteButton";
 import LikeButton from "./LikeButton";
 
 const Card = ({ post }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [postData, setPostData] = useState(post);
     const [updatePost, setUpdatePost] = useState(false);
+    const [updateText, setTextUpdate] = useState(null);
 
     useEffect(() => {
         postData && 
@@ -20,18 +23,19 @@ const Card = ({ post }) => {
     }
      console.log("postData", postData)
 
-    const firstNameInputRef = useRef();
+    // const messageTextareaRef = useRef();
 
-    const changeHandler = () => {
-        const changeFirstName = firstNameInputRef.current.value;
-        console.log("modif input", changeFirstName)
+    // const changeHandler = () => {
+    //     const modifMessage = messageTextareaRef.current.value;
+    //     console.log("modif textarea", modifMessage)
 
-        setPostData({
-            ...post,
-            "firstName": changeFirstName,
-        })
-    }
+    //     // setPostData({
+    //     //     ...post,
+    //     //     "message": modifMessage,
+    //     // })
+    // }
 
+    console.log(postData.message)
     const deleteHandler = () => {
 
     }
@@ -44,29 +48,40 @@ const Card = ({ post }) => {
             <StyledCardContainer className="card-container">
               <StyledCard className="card">
                 <StyledHeader className="card-header">
-                { !updatePost && <StyledName className="firstName">{post.firstName}</StyledName>}
-                { updatePost && <input type="text" value={postData.firstName} onChange={changeHandler} ref={firstNameInputRef}></input>}
-
-                { !updatePost && <StyledName className="Lastname">{post.lastName}</StyledName>}
-                { updatePost && <input type="text" value={post.lastName} onChange={()=>{}}></input>}
-                    <p className="card-timestamps">{post.createdAt}</p>
+                <StyledHeaderName>
+                    <StyledName className="firstName" id="firstName">{postData.firstName}</StyledName>
+                    <StyledName className="Lastname">{postData.lastName}</StyledName>
+                </StyledHeaderName>
+                <StyledSpanTimeStamp>{dateParser(post.createdAt)}</StyledSpanTimeStamp>
                 </StyledHeader>
                 <div className="card-middle">
                     <div className="card-img">
-                    { !updatePost &&<StyledImgCard className="img" src={post.image} alt="Image choisit par l'utilisateur" />}
-                    { updatePost && <input type="text" value={post.image} onChange={()=>{}}></input>}
+                    {/* { !updatePost &&  */}
+                    <StyledImgCard className="img" src={postData.image} alt="Image choisit par l'utilisateur" />
+                    {/* } */}
+                    {/* { updatePost && <input type="text" value={postData.image} onChange={()=>{}}></input>} */}
                     </div>
-                    <div className="card-comment">
-                        { !updatePost &&  <p>{post.message}</p>}
-                        { updatePost && <input type="text" value={post.message} onChange={()=>{}}></input>}
+                    <div className="card-message">
+                        { updatePost === false &&  <p>{postData.message}</p>}
+                        { updatePost && 
+                        <div className="update-post">
+                            <StyledTextArea 
+                                className="post-message"
+                                defaultValue={postData.message} 
+                                onChange={(e) => setTextUpdate(true)}
+                                />
+                        </div>
+                        }
                     </div>
                 </div>
-                <LikeButton />
                 <StyledBtnDiv className="card-btn-container">
-                    <StyledBtnCard onClick={updateHandler} className="card-btn-update" alt="Bouton pour modifier le post">
-                        { !updatePost ? "Modifier" : "Envoyer" }
-                    </StyledBtnCard>
-                    <StyledBtnCard onClik={deleteHandler} className="card-btn-delete" alt="Bouton pour supprimer le post">Supprimer</StyledBtnCard>
+                    <LikeButton post={post} key={post._id}/>
+                    <StyledBtnUpdateDelete>
+                        <StyledBtnCard onClick={updateHandler} className="card-btn-update" alt="Bouton pour modifier l'article">
+                            { !updatePost ? <i class="fa-regular fa-pen-to-square"></i> : "Envoyer" }
+                        </StyledBtnCard>
+                        <DeleteButton id={postData._id} />
+                    </StyledBtnUpdateDelete>
                 </StyledBtnDiv>
                 </StyledCard>
             </StyledCardContainer>
@@ -84,16 +99,22 @@ const StyledCardContainer = styled.div`
     text-align: center;
     padding: 20px;
 `
-
 const StyledCard = styled.div`
     padding: 15px;
     border: 2px solid none;
+    background: linear-gradient(white, #FFD7D7);
     box-shadow: 2px 2px 10px #FFD7D7;
     border-radius: 20px 20px;
     width: 60%;
 `
+const StyledHeaderName = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
 const StyledHeader = styled.header`
     display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
 `
 const StyledName = styled.h3`
     margin: 5px;
@@ -103,34 +124,40 @@ const StyledImgCard = styled.img`
     border-radius: 20px;
     max-width: 80%;
     width: auto;
-    max-height: 400px;
+    max-height: 350px;
 `
-// const StyledIconLike = styled.i`
-//     border: black;
-//     margin: 10px;
-//     &:hover {
-//         color: #FFD7D7;
-//         cursor: pointer;
-//   	    transform: scale(1.08);
-//     } 
-// `
+const StyledBtnUpdateDelete = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`
 const StyledBtnDiv = styled.div`
     display: flex;
-    justify-content: center;
-    margin: 5px;
+    justify-content: space-between;
+    align-items: center;
 `
 const StyledBtnCard = styled.button`
     color: #8186a0;
-    font-size: 18px;
-    border-radius: 10px 10px;
-    margin: 5px;
+    font-size: 16px;
+    border-radius: 40px;
     height: 30px;
-    width: 30%;
     &:hover {
-        background-color: #FFD7D7;
+        color: white;
+        background-color: orange;
         cursor: pointer;
   	    transform: scale(1.08);
     } 
+`
+const StyledTextArea = styled.textarea`
+    border-radius: 10px 10px;
+    min-height: 60px;
+    width: 80%;
+`
+const StyledSpanTimeStamp = styled.span`
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-style: italic;
 `
 
 
