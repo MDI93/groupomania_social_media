@@ -5,7 +5,6 @@ import { NavLink } from 'react-router-dom';
 import Logout from './Log/Logout';
 import { AuthUserContext } from '../context/UserContext';
 
-
 const Navbar = () => {
     const authId = useContext(AuthUserContext);
     const isLoggedIn = authId.isLoggedIn;
@@ -24,7 +23,7 @@ const Navbar = () => {
                 </StyledLi>
                 <StyledLi>
                     <StyledNavLink exact="true" to={'/newpost'}>
-                        <h3>Créer un post</h3>
+                        <h3>Créer un article</h3>
                     </StyledNavLink>
                 </StyledLi>
             </StyledUl>
