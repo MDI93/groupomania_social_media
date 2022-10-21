@@ -1,27 +1,37 @@
 const Posts = require('../models/Posts');
+const FormData = require('form-data');
 const fs = require('fs');
 
 // Récuperer tous les 'posts' (READ)
 exports.getAllPosts = (req, res, next) => {
-    Posts.find()
+    Posts.find().sort({createdAt: -1})
         .then(posts => res.status(200).json(posts))
         .catch(error => res.status(400).json({ error }));
 };
 
 // Créer un 'post' (CREATE)
 exports.createPost = async (req, res, next) => {
-    const postObject = req.body.post;
-    delete postObject._id;
-    delete postObject.userId;
+    
+    const postObject = JSON.parse(req.body.post);
+    console.log("postObject-", postObject); 
+    // let formData = new FormData();
+
+    // formData.append("image", image);
+
+    // formData.append("image", req.file.filename)
+
+    // console.log(formData.append)
+
+    // delete postObject._id;
+    // delete postObject.userId;
 
     const newPost = new Posts ({
         ...postObject,
         userId: req.auth.userId,
-        image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        // image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
         likes: 0,
-        usersLiked: [' ']
+        usersLiked: []
     });
-
     try{
         const post = await newPost.save();
         return res.status(201).json({ message: 'New post has been created !', post });
@@ -40,15 +50,16 @@ exports.getOnePost = (req, res, next) => {
 
 // Modifier un 'post' par le même utilisateur (UPDATE)
 exports.updatePost = (req, res, next) => {
+    const postData = JSON.parse(req.body.post)
     const postObject = req.file ? {
-        ...req.body.sauce,
+        ... postData,
         image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-      } : { ...req.body.post };
+      } : { ...postData };
 
     delete postObject.userId;
     Posts.findOne({ _id: req.params.id })
         .then((post) => {
-            if(post.userId != req.auth.userId){
+            if(post.userId !== req.auth.userId && post.userId !== req.auth.role){
                 res.status(401).json({ message: 'Unauthorized !' });
             } else {
                 Posts.updateOne(
@@ -65,7 +76,7 @@ exports.updatePost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     Posts.findOne({ _id: req.params.id })
         .then(post => {
-            if(post.userId != req.auth.userId){
+            if(post.userId !== req.auth.userId && post.userId !== req.auth.role){
                 res.status(401).json({ message: 'Unauthorized !'});
             } else {
                 const filename = post.image.split('/images/')[1];
