@@ -54,35 +54,32 @@ const LoginForm = () => {
     // }
 
     return(
-        <StyledForm onSubmit={handleLogin}>
-            <label htmlFor="login">Déjà enregistrer</label>
-            <br />
-            <label htmlFor="email">Adresse e-mail</label>
-            <StyledInput 
+        <Form onSubmit={handleLogin}>
+            <Label htmlFor="login">Déjà enregistrer</Label>
+            <Label htmlFor="email">Adresse e-mail</Label>
+            <Input 
                 type="text" 
                 name="email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
             />    
-            <br />
-            <label htmlFor="email">Mot de passe</label>
-            <StyledInput
+            <Label htmlFor="email">Mot de passe</Label>
+            <Input
                 type="password" 
                 name="password" 
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
             />
-            <br />
-            <StyledBtn type="submit" value="Se connecter" />
+            <Btn type="submit" value="Se connecter" />
             {errorEmailPassword && 
-            <StyledError>Adresse e-mail et/ou mot de passe incorrect(s)</StyledError>}
+            <Error>Adresse e-mail et/ou mot de passe incorrect(s)</Error>}
             {isLoading && <p>En cours de chargement...</p>}
-        </StyledForm>
+        </Form>
     )
 }
 
 // Style de la page 'Login'
-const StyledForm = styled.form`
+const Form = styled.form`
     background-color: #4E5166;
     display: flex;
     flex-direction: column;
@@ -91,27 +88,33 @@ const StyledForm = styled.form`
     color: #8186a0;
     font-size: 18px;
     width: 400px;
+    padding: 10px;
     border-radius: 20px 20px;
     box-shadow: 2px 2px 10px grey;
 `
-const StyledInput = styled.input`
+const Label = styled.label`
+    margin: 10px;
+`
+const Input = styled.input`
     width: 60%;
     border-radius: 15px 15px;
     height: 30px;
+    margin: 5px;
 `
-const StyledBtn = styled.input`
+const Btn = styled.input`
     color: #8186a0;
     font-size: 18px;
     border-radius: 15px 15px;
     height: 40px;
     width: 40%;
+    margin: 15px;
     &:hover {
         background-color: #FFD7D7;
         cursor: pointer;
   	    transform: scale(1.08);
     } 
 `
-const StyledError = styled.span`
+const Error = styled.span`
     color: red;
     padding-bottom:5px;
     font-size: 14px;
