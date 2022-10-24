@@ -18,7 +18,7 @@ const LoginForm = () => {
     
     setIsLoading(true)    
     
-    const url = `${process.env.REACT_APP_URL_API}/auth/login`
+    const url = "http://localhost:4000/api/auth/login"
     const fetchPost = async () => {
         try{
             const response = await fetch(url, {
@@ -37,7 +37,7 @@ const LoginForm = () => {
                 setData(responseData);
                 authId.login(responseData);
                 navigate('/home', {replace: true})
-                // console.log("response data", responseData)
+                console.log("response data", responseData)
             } else {
                 setErrorEmailPassword(responseData.error);  
             }  

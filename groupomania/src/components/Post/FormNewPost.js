@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import styled from "styled-components";
 import axios from 'axios';
+import {AuthUserContext} from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const FormNewPost = () => {
+    const authId = useContext(AuthUserContext);
+    const isLoggedIn = authId.isLoggedIn
     const [formNewPostSubmit, setFormNewPostSubmit] = useState(false);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
+    
     const [message, setMessage] = useState("");
-    const [image, setImage] = useState();
+    const [image, setImage] = useState("");
+    const [file, setFile] = useState()
     const [errorPost, setErrorPost] = useState(false);
     const navigate = useNavigate();
-
-    const changeHandler = (e) => {
-        setImage(e.target.files[0]);
-    };
     
     const handleFormNewPost = (e) => {
         e.preventDefault();
@@ -28,14 +29,14 @@ const FormNewPost = () => {
         }));
         formData.append("image", image);
         axios.create({
-            baseURL: `${process.env.REACT_APP_URL_API}`,
+            baseURL: "http://localhost:4000/api",
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("token")}`
             }
         }).post("/posts/", formData, {
             headers: {
                 "Accept": "*/*",
-                "Content-Type": "multipart/form-data"
+                // "Content-Type": "multipart/form-data"
             },
         }).then((res) => {
             console.log(res)
@@ -47,16 +48,23 @@ const FormNewPost = () => {
                 alert("Bravo! Votre article a bien été créé. :)")
             }
         })
-            .catch((error) => console.log(error));
-    };
-    console.log("submit", setFormNewPostSubmit);
+            .catch((error) => console.log(error))
+    }
+    console.log("submit", setFormNewPostSubmit)
+
+    const handleImage = (e) => {
+        console.log("insere de l'image", e)
+        setImage(URL.createObjectURL(e.target.files[0]))
+        console.log("stock image", setImage(URL.createObjectURL(e.target.files[0])))
+    }
 
     const cancelPost = () => {
         setFirstName('');
         setLastName('');
         setImage('');
         setMessage('');
-    };
+        setFile('');
+    }
 
     return (
         <>
@@ -83,7 +91,8 @@ const FormNewPost = () => {
                         <input
                             type="file"
                             name="file"
-                            onChange={changeHandler}
+                            id="file-upload"
+                            onChange={(e) => handleImage(e)}
                             accept=".jpg, .jpeg, .png"
                         />
                         <br/>
@@ -97,15 +106,12 @@ const FormNewPost = () => {
                         />
                         <br />
                         {firstName || lastName || message || image ? (
-                        <StyledBtnCancel 
-                            className="cancel" 
-                            onClick={cancelPost}>
+                        <StyledBtnCancel className="cancel" onClick={cancelPost}>
                             Annuler
                         </StyledBtnCancel>
                         ) : null}
                         <br />
-                        <StyledBtnSubmit 
-                            type="submit">
+                        <StyledBtnSubmit type="submit">
                             Envoyer <i class="fa-solid fa-paper-plane"></i>
                         </StyledBtnSubmit>
                         <br/>
@@ -113,7 +119,7 @@ const FormNewPost = () => {
                         <StyledError>{errorPost}</StyledError>
                         }
                     </StyledForm>
-                </StyledFormContainer> 
+                </StyledFormContainer>
         </>
     )
 
@@ -133,12 +139,14 @@ const StyledForm = styled.form`
     align-items: center;
     padding: 10px;
     width: 50%;
-    border-radius: 10px 10px;
-    background-color: #4E5166;
+    border-radius: 10px 10px;   
+    background: linear-gradient(#4E5166, white);
+    box-shadow: 2px 5px 10px #FD2D01;
 `
 const StyledH3 = styled.h3`
     padding: 10px 30px 10px 30px;
     border-radius: 15px 15px;
+    border-right: 3px solid #FD2D01;
     border-bottom: 3px solid #FD2D01;
 `
 const StyledInput = styled.input`

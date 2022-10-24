@@ -6,12 +6,12 @@ import Thread from "../components/Thread";
 export default function Home() {
     const authId = useContext(AuthUserContext);
 
-    // console.log("*************************authId***************************", authId);
+    console.log("*************************authId***************************", authId);
 
     const isLoggedIn = authId.isLoggedIn;
     const [data, setData] = useState([]);
 
-    const url = `${process.env.REACT_APP_URL_API}/posts/`;
+    const url = "http://localhost:4000/api/posts/";
 
     const fetchData = useCallback(async() => {
       try{
@@ -40,19 +40,11 @@ export default function Home() {
       };
     }, [isLoggedIn, fetchData])
 
-    // const onRefresh = () =>{
-    //   console.log("reload")
-    //   fetchData();
-    // }
-
     return( 
         <>
           {!isLoggedIn && <Navigate to='/' replace="true"/>}
           {isLoggedIn && (
-            <Thread 
-              data={data} 
-              // onRefresh={onRefresh} 
-            />
+            <Thread data={data}/>
           )}
         </>
     )
