@@ -4,8 +4,8 @@ import WhiteLogo from '../assets/Logos/logo_monochrome_white.svg'
 
 const Footer = () => {
   return (
-    <StyledFooter>
-        <StyledLogo src={WhiteLogo} alt="Logo de l'entreprise Groupomania" />
+    <StyledFooter className='footer-container'>
+        <StyledLogo classname='logo' src={WhiteLogo} alt="Logo de l'entreprise Groupomania" />
         <StyledH5>Réseau social d'entreprise</StyledH5>
     </StyledFooter>
   )

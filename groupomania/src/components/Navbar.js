@@ -10,12 +10,12 @@ const Navbar = () => {
     const isLoggedIn = authId.isLoggedIn;
 
     return(
-        <StyledNav>
+        <StyledNav className='navbar-container'>
             <NavLink exact="true" to={'/home'}>
                 <StyledLogo src={Logo} alt="Logo de l'entreprise Groupomania" />
             </NavLink>
             {isLoggedIn && 
-            <StyledUl>
+            <StyledUl className='navbar-list-links'>
                 <StyledLi>
                     <StyledNavLink exact="true" to={'/home'}>
                         <h3>Accueil</h3>
