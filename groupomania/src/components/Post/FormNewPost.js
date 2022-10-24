@@ -1,19 +1,14 @@
-import React, {useContext, useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import axios from 'axios';
-import {AuthUserContext} from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const FormNewPost = () => {
-    const authId = useContext(AuthUserContext);
-    const isLoggedIn = authId.isLoggedIn
     const [formNewPostSubmit, setFormNewPostSubmit] = useState(false);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState(null);
     const [image, setImage] = useState("");
-    const [file, setFile] = useState()
     const [errorPost, setErrorPost] = useState(false);
     const navigate = useNavigate();
     
@@ -36,7 +31,7 @@ const FormNewPost = () => {
         }).post("/posts/", formData, {
             headers: {
                 "Accept": "*/*",
-                // "Content-Type": "multipart/form-data"
+                "Content-Type": "multipart/form-data"
             },
         }).then((res) => {
             console.log(res)
@@ -52,18 +47,15 @@ const FormNewPost = () => {
     }
     console.log("submit", setFormNewPostSubmit)
 
-    const handleImage = (e) => {
-        console.log("insere de l'image", e)
-        setImage(URL.createObjectURL(e.target.files[0]))
-        console.log("stock image", setImage(URL.createObjectURL(e.target.files[0])))
-    }
+    const changeHandler = (e) => {
+        setImage(e.target.files[0]);
+    };
 
     const cancelPost = () => {
         setFirstName('');
         setLastName('');
         setImage('');
         setMessage('');
-        setFile('');
     }
 
     return (
@@ -88,11 +80,11 @@ const FormNewPost = () => {
                         />
                         <br/>
                     <label htmlFor="image">Insérer une image</label>
-                        <input
+                        <StyledInputFile
                             type="file"
                             name="file"
                             id="file-upload"
-                            onChange={(e) => handleImage(e)}
+                            onChange={changeHandler}
                             accept=".jpg, .jpeg, .png"
                         />
                         <br/>
@@ -100,20 +92,21 @@ const FormNewPost = () => {
                         <StyledTextarea
                             type="text"
                             name="message"
-                            placeholder=" Entrez votre message"
+                            placeholder=" Ecrivez votre message ici"
                             onChange={(e) => setMessage(e.target.value)}
                             value={message}
                         />
                         <br />
-                        {firstName || lastName || message || image ? (
-                        <StyledBtnCancel className="cancel" onClick={cancelPost}>
-                            Annuler
-                        </StyledBtnCancel>
-                        ) : null}
-                        <br />
-                        <StyledBtnSubmit type="submit">
-                            Envoyer <i class="fa-solid fa-paper-plane"></i>
-                        </StyledBtnSubmit>
+                        <ContainerButton>
+                            {firstName || lastName || message || image ? (
+                            <StyledBtnCancel className="cancel" onClick={cancelPost}>
+                                Annuler
+                            </StyledBtnCancel>
+                            ) : null}
+                            <StyledBtnSubmit type="submit">
+                                Envoyer <i class="fa-solid fa-paper-plane"></i>
+                            </StyledBtnSubmit>
+                        </ContainerButton>
                         <br/>
                         {errorPost &&
                         <StyledError>{errorPost}</StyledError>
@@ -140,31 +133,45 @@ const StyledForm = styled.form`
     padding: 10px;
     width: 50%;
     border-radius: 10px 10px;   
-    background: linear-gradient(#4E5166, white);
-    box-shadow: 2px 5px 10px #FD2D01;
+    background-color: #4E5166;
 `
 const StyledH3 = styled.h3`
     padding: 10px 30px 10px 30px;
     border-radius: 15px 15px;
-    border-right: 3px solid #FD2D01;
     border-bottom: 3px solid #FD2D01;
+    margin-bottom: 30px;
 `
 const StyledInput = styled.input`
     width: 60%;
     border-radius: 15px 15px;
     height: 30px;
+    margin: 5px;
+`
+const StyledInputFile = styled.input`
+    width: 40%;
+    height: 30px;
+    margin: 5px;
 `
 const StyledTextarea = styled.textarea`
     border-radius: 10px 10px;
     min-height: 60px;
     width: 80%;
+    margin: 5px;
+`
+const ContainerButton = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `
 const StyledBtnSubmit = styled.button`
     color: #8186a0;
     font-size: 18px;
     border-radius: 15px 15px;
     padding: 10px;
-    width: 30%;
+    width: 40%;
+    margin: 10px;
     &:hover {
         color: white;
         background: linear-gradient(white, green);
@@ -177,7 +184,7 @@ const StyledBtnCancel = styled.button`
     font-size: 18px;
     border-radius: 15px 15px;
     padding: 10px;
-    width: 30%;
+    width: 40%;
     &:hover {
         color: white;
         background: linear-gradient(white, #FD2D01);
