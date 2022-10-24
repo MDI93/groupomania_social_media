@@ -15,7 +15,7 @@ const DeleteButton = ({ post }) => {
       headers:{
         Authorization: `Bearer ${localStorage.getItem("token")}`
       },
-      data: { post }
+      data: post.userId
     })
     .then((res) => {
       console.log(res)
