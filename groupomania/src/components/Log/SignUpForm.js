@@ -14,14 +14,14 @@ function SignUpForm() {
         
        axios({
             method: "post",
-            url: `http://localhost:4000/api/auth/signup`,
+            url: `${process.env.REACT_APP_URL_API}/auth/signup`,
             data: {
                 email,
                 password
             }
         })
         .then((res) => {
-            console.log(res)
+            // console.log(res)
             if(res.error) {
                 setErrorEmail(res.error)
             } else {

@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
 import styled from "styled-components";
+import { AuthUserContext } from "../../context/UserContext";
 import { dateParser } from "../Routes/utils";
 import DeleteButton from "./DeleteButton";
 import LikeButton from "./LikeButton";
 
-const Card = ({ post }) => {
+const Card = ({ post, onRefresh }) => {
+    const authId = useContext(AuthUserContext);
     const [isLoading, setIsLoading] = useState(true);
     const [postData, setPostData] = useState(post);
     const [updatePost, setUpdatePost] = useState(false);
@@ -14,11 +16,17 @@ const Card = ({ post }) => {
         setIsLoading(false);
     }, [postData])
 
+    const updateHandler = useCallback(() => {
+        console.log("Modif")
+        setUpdatePost((updatePost) => !updatePost)
+        console.log("update", updatePost)
+    }, [updatePost]);
+
      console.log("postData", postData)
 
     const messageUpdateRef = useRef();
 
-    const changeHandler = (e) => {
+    const modifyHandler = useCallback((e) => {
         const updatedMessage = messageUpdateRef.current.value;
         console.log("modif textarea", updatedMessage)
 
@@ -31,14 +39,14 @@ const Card = ({ post }) => {
        
         setPostData(prevState => ({
             ...prevState.postData,
-            message: updatedMessage,
-            image: newImage
+            "message": updatedMessage,
+            "image": newImage
         }));
 
         const updateStateFormData = {
-            message: updatedMessage
+            "message": updatedMessage
         }
-
+    
         const formData = new FormData();
 
         formData.append("image", newImage);
@@ -47,7 +55,7 @@ const Card = ({ post }) => {
         console.log(formData.get('image'))
         console.log(formData.get('post'))
 
-        const url = `http://localhost:4000/api/posts/${postData._id}`
+        const url = `${process.env.REACT_APP_URL_API}/posts/${post._id}`
         const uploadHandler = async () => {
             try{
                 const response = await fetch(url, {
@@ -62,6 +70,7 @@ const Card = ({ post }) => {
                 const responseData = await response.json();
                     if(response.ok) {
                     console.log("response data ok", responseData)
+                    alert("Votre article a bien été modifié ! ;)")
                     } else {
                     console.log("Pas ok", responseData.error);  
                     }
@@ -70,23 +79,13 @@ const Card = ({ post }) => {
                 };
         }
         uploadHandler()
-    };
-
-    const updateHandler = () => {
-        console.log("Modif")
-        setUpdatePost((updatePost) => !updatePost)
-        console.log("update", updatePost)
-    };
+    }, [post._id]);
 
     // useEffect(() => {
-    //     if(updateHandler === true){
-    //         uploadHandler();
+    //     if(updatePost){
+    //        onRefresh(); 
     //     }
-    // }, [uploadHandler])
-    
-
-    console.log(postData.message)
-    
+    // }, [updatePost])    
    
     return(
         <li className="card-container" key={post._id}>
@@ -104,19 +103,17 @@ const Card = ({ post }) => {
                 </StyledHeader>
                 <div className="card-middle">
                     <div className="card-img">
-                    {/* { !updatePost == false ? (null) : (  */}
-                        <StyledImgCard className="img" src={postData.image} alt="Image choisit par l'utilisateur" />
-                        {/* )} */}
-                    { !updatePost ? 
-                        ( null ) : (
+                        <StyledImgCard className="img" src={postData.image} alt={postData ? null : "Image choisit par l'utilisateur"} />
+                    { updatePost ? 
+                        (
                         <input  
                             type="file"
                             name="file"
                             id="file-upload"
-                            onChange={changeHandler}
+                            onChange={modifyHandler}
                             accept=".jpg, .jpeg, .png"
                         />
-                        )}
+                        ) : ( null )}
                     </div>
                     <div className="card-message">
                         { updatePost === false &&  <p>{postData.message}</p>}
@@ -125,7 +122,7 @@ const Card = ({ post }) => {
                             <StyledTextArea 
                                 className="post-message"
                                 defaultValue={postData.message} 
-                                onChange={changeHandler}
+                                onChange={modifyHandler}
                                 ref={messageUpdateRef}
                                 />
                         </div>
@@ -134,15 +131,16 @@ const Card = ({ post }) => {
                 </div>
                 <StyledBtnDiv className="card-btn-container">
                     <LikeButton post={post} key={post._id}/>
-                    { post.userId !== post._id ? (
+                    { authId.userId === post.userId ? (
                         <StyledBtnUpdateDelete>
                             <StyledBtnCard 
+                                type='submit'
                                 onClick={updateHandler} 
                                 className="card-btn-update" 
                                 alt="Bouton pour modifier l'article">
-                            { !updatePost ? <i class="fa-regular fa-pen-to-square"></i> : "Valider" }
+                            { !updatePost ? <i class="fa-regular fa-pen-to-square"></i> : "Valider"}
                             </StyledBtnCard>
-                            <DeleteButton id={postData._id} />
+                            <DeleteButton post={post} id={post._id} />
                         </StyledBtnUpdateDelete>
                     ) : null}
                     </StyledBtnDiv>
