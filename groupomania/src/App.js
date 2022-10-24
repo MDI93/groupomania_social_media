@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 
 const App = () => {
   return (
-    <StyledBody>
+    <StyledBody className='body'>
       <IndexRoutes />
       <Footer />
     </StyledBody>  
