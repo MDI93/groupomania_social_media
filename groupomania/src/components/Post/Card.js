@@ -5,11 +5,13 @@ import { dateParser } from "../Routes/utils";
 import DeleteButton from "./DeleteButton";
 import LikeButton from "./LikeButton";
 
-const Card = ({ post, onRefresh }) => {
+const Card = ({ post, refresh }) => {
     const authId = useContext(AuthUserContext);
     const [isLoading, setIsLoading] = useState(true);
     const [postData, setPostData] = useState(post);
     const [updatePost, setUpdatePost] = useState(false);
+    const [newImage, setNewImage] = useState();
+
 
     useEffect(() => {
         postData && 
@@ -17,35 +19,37 @@ const Card = ({ post, onRefresh }) => {
     }, [postData])
 
     const updateHandler = useCallback(() => {
-        console.log("Modif")
         setUpdatePost((updatePost) => !updatePost)
-        console.log("update", updatePost)
+        console.log("updateHandler")
+        console.log(updatePost)
     }, [updatePost]);
 
-    console.log("postData", postData)
+    const modifyImageHandler = (e) => {
+        setNewImage(e.target.files[0]);
+
+    }
 
     const messageUpdateRef = useRef();
 
     const modifyHandler = useCallback((e) => {
+        e.preventDefault();
+
+        console.log("event", e)
         const updatedMessage = messageUpdateRef.current.value;
         console.log("modif textarea", updatedMessage)
 
-        let newImage;
-        if(e.target.files && e.target.files[0]){
-            newImage = e.target.files[0]
-            console.log("------Event", e.target.files[0])
-        }
         console.log("------newImage", newImage)
        
         setPostData(prevState => ({
             ...prevState.postData,
-            message: updatedMessage,
-            image: newImage
+            "message": updatedMessage,
         }));
 
         const updateStateFormData = {
-            message: updatedMessage
+            "message": updatedMessage
         };
+
+        // console.log(updatedMessage)
 
         const formData = new FormData();
 
@@ -61,7 +65,6 @@ const Card = ({ post, onRefresh }) => {
                 const response = await fetch(url, {
                     method: "PUT",
                     headers: {
-                        "Content-Type": "multipart/form-data",
                         "Authorization": `Bearer ${localStorage.getItem("token")}`
                     },
                     body: formData
@@ -69,16 +72,25 @@ const Card = ({ post, onRefresh }) => {
                 const responseData = await response.json();
                     if(response.ok) {
                     console.log("response data ok", responseData)
+                    setUpdatePost(false)
                     // alert("Votre article a bien été modifié ! ;)")
                     } else {
                     console.log("Pas ok", responseData.error);  
                     }
                 } catch(error) {
                     console.log("Error upload", error)
+                    setUpdatePost(false)
                 };
         }
-        uploadHandler()
-    }, [post._id]);
+        uploadHandler();
+    }, [post._id, newImage]);
+
+    useEffect(() => {
+        if(!updatePost){
+            refresh();
+        }
+        console.log("update",updatePost, 'refresh', refresh)
+    }, [updatePost])
      
     return(
         <li className="card-container" key={post._id}>
@@ -96,14 +108,14 @@ const Card = ({ post, onRefresh }) => {
                 </StyledHeader>
                 <div className="card-middle">
                     <div className="card-img">
-                        <StyledImgCard className="img" src={postData.image} alt="Image choisit par l'utilisateur" />
+                       { updatePost ? <StyledImgCard className="img" src={postData.image} alt={updatePost ? ("Image choisit par l'utilisateur"):(null)} /> }
                     { !updatePost ? 
                         ( null ) : (
                         <input  
                             type="file"
                             name="file"
                             id="file-upload"
-                            onChange={modifyHandler}
+                            onChange={modifyImageHandler}
                             accept=".jpg, .jpeg, .png"
                         />
                         )}
@@ -115,7 +127,6 @@ const Card = ({ post, onRefresh }) => {
                             <StyledTextArea 
                                 className="post-message"
                                 defaultValue={postData.message} 
-                                onChange={modifyHandler}
                                 ref={messageUpdateRef}
                                 />
                         </div>
@@ -124,15 +135,25 @@ const Card = ({ post, onRefresh }) => {
                 </div>
                 <StyledBtnDiv className="card-btn-container">
                     <LikeButton post={post} key={post._id}/>
-                    { authId.userId ? (
+                    { authId.userId !== post._id || authId.isAdmin === true ? (
                         <StyledBtnUpdateDelete>
+                        { !updatePost ? (
                             <StyledBtnCard 
-                                type='submit'
+                                type='button'
                                 onClick={updateHandler} 
                                 className="card-btn-update" 
                                 alt="Bouton pour modifier l'article">
-                            { !updatePost ? <i class="fa-regular fa-pen-to-square"></i> : "Valider" }
+                                <i class="fa-regular fa-pen-to-square"></i>
                             </StyledBtnCard>
+                        ) : (
+                            <StyledBtnCard 
+                                type='submit'
+                                onClick={modifyHandler} 
+                                className="card-btn-update" 
+                                alt="Bouton pour modifier l'article">
+                                Valider
+                            </StyledBtnCard>
+                        )}
                             <DeleteButton id={post._id} post={post} />
                         </StyledBtnUpdateDelete>
                     ) : (null)}

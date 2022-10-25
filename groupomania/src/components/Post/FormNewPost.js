@@ -1,27 +1,39 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import Home from '../../pages/Home'
 
 const FormNewPost = () => {
     const [formNewPostSubmit, setFormNewPostSubmit] = useState(false);
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [message, setMessage] = useState(null);
-    const [image, setImage] = useState("");
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
+    const [message, setMessage] = useState();
+    const [image, setImage] = useState();
     const [errorPost, setErrorPost] = useState(false);
-    const navigate = useNavigate();
-    
+
     const handleFormNewPost = (e) => {
         e.preventDefault();
-
+     
         let formData = new FormData();
-
+        console.log("message", formData.message)
         formData.append("post", JSON.stringify({
             firstName: firstName,
             lastName: lastName,
             message: message
         }));
+
+        let addImage;
+        if(e.target.files && e.target.files[0]){
+            addImage = e.target.files[0]
+            console.log("------Event", e.target.files[0])
+        }
+        console.log("------newImage", addImage)
+       
+        setFormNewPostSubmit({
+            "message": message,
+            "image": addImage
+        });
+
         formData.append("image", image);
         axios.create({
             baseURL: "http://localhost:4000/api",
@@ -39,16 +51,14 @@ const FormNewPost = () => {
                 setErrorPost(res.error)
             } else {
                 setFormNewPostSubmit(true);
-                navigate('/home', {replace: true})
-                alert("Bravo! Votre article a bien été créé. :)")
             }
         })
-            .catch((error) => console.log(error))
-    }
-    console.log("submit", setFormNewPostSubmit)
+        .catch((error) => console.log(error))
+    };
 
     const changeHandler = (e) => {
         setImage(e.target.files[0]);
+        console.log("stock image", e.target.files[0])
     };
 
     const cancelPost = () => {
@@ -60,6 +70,12 @@ const FormNewPost = () => {
 
     return (
         <>
+        {formNewPostSubmit ? (
+        <>
+            <Home />
+            {alert("Bravo! Votre article a bien été créé. :)")}
+        </>
+        ) : (
             <StyledFormContainer>
                 <StyledForm action="" onSubmit={handleFormNewPost} className="new-post-form">
                     <StyledH3 htmlFor="newPost">Créer un nouvel article</StyledH3>
@@ -83,7 +99,6 @@ const FormNewPost = () => {
                         <StyledInputFile
                             type="file"
                             name="file"
-                            id="file-upload"
                             onChange={changeHandler}
                             accept=".jpg, .jpeg, .png"
                         />
@@ -109,15 +124,15 @@ const FormNewPost = () => {
                         </ContainerButton>
                         <br/>
                         {errorPost &&
-                        <StyledError>{errorPost}</StyledError>
+                        <SpanError>{errorPost}</SpanError>
                         }
                     </StyledForm>
                 </StyledFormContainer>
+            )}
         </>
     )
 
-}
-// }
+};
 
 export default FormNewPost;
 
@@ -192,7 +207,7 @@ const StyledBtnCancel = styled.button`
   	    transform: scale(1.08);
     } 
 `
-const StyledError = styled.span`
+const SpanError = styled.span`
     color: red;
     padding-bottom:5px;
     font-size: 14px;

@@ -14,7 +14,7 @@ export const AuthUserContext = createContext(defaultValue);
 const tokenStorage = localStorage.getItem('token');
 const userIdStorage = localStorage.getItem('userId');
 const roleStorage = localStorage.getItem('role');
-console.log("-----------tokenStorage-------------", tokenStorage);
+// console.log("-----------tokenStorage-------------", tokenStorage);
 
 export const AuthUserProvider = (props) => {
 
@@ -47,14 +47,10 @@ export const AuthUserProvider = (props) => {
     logout: logout
     }
 
-  console.log(userIsLoggedIn, "authedToken", authedToken, "authId", authId)
+  // console.log(userIsLoggedIn, "authedToken", authedToken, "authId", authId)
 
   return (
   <AuthUserContext.Provider value={authId}>
     {props.children}
   </AuthUserContext.Provider>);
-}
-
-// export default function AuthConsumer() {
-//   return useContext(AuthUserContext);
-// }
+};

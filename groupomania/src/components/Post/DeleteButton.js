@@ -9,8 +9,8 @@ const DeleteButton = ({ post }) => {
   const [deletePost, setDeletePost] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
 
+
   const deleteHandler = (e) => {
-    console.log("------delete Post", deleteHandler )
     axios.delete(`${process.env.REACT_APP_URL_API}/posts/${post._id}`, {
       headers:{
         Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -27,7 +27,6 @@ const DeleteButton = ({ post }) => {
     })
     .catch((error) => console.log(error))
   };
-  console.log("delete post", deleteHandler)
 
   return (
     <>

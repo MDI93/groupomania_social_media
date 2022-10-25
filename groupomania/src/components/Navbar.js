@@ -15,22 +15,22 @@ const Navbar = () => {
                 <StyledLogo src={Logo} alt="Logo de l'entreprise Groupomania" />
             </NavLink>
             {isLoggedIn && 
-            <StyledUl className='navbar-list-links'>
-                <StyledLi>
-                    <StyledNavLink exact="true" to={'/home'}>
+            <Ul className='navbar-list-links'>
+                <Li>
+                    <NavLinkStyled exact="true" to={'/home'}>
                         <h3>Accueil</h3>
-                    </StyledNavLink>
-                </StyledLi>
-                <StyledLi>
-                    <StyledNavLink exact="true" to={'/newpost'}>
+                    </NavLinkStyled>
+                </Li>
+                <Li>
+                    <NavLinkStyled exact="true" to={'/newpost'}>
                         <h3>Créer un article</h3>
-                    </StyledNavLink>
-                </StyledLi>
-            </StyledUl>
+                    </NavLinkStyled>
+                </Li>
+            </Ul>
             }
-            <StyledNavLink exact="true" to='/'>
+            <NavLinkStyled exact="true" to='/'>
                 <Logout />
-            </StyledNavLink>
+            </NavLinkStyled>
         </StyledNav>
     )
 }  
@@ -43,14 +43,14 @@ const StyledNav = styled.span`
     border-bottom: 3px solid #FD2D01;
     margin-bottom: 100px;
 `
-const StyledUl = styled.ul`
+const Ul = styled.ul`
     list-style-type: none;
     align-items: center;
     justify-content: center;
     height: 30px;
     display: flex;
 `
-const StyledLi = styled.li`
+const Li = styled.li`
     display: flex;
     margin-left: 20px;
     :hover {
@@ -58,7 +58,7 @@ const StyledLi = styled.li`
         transform: scale(1.1)
     }
 `
-const StyledNavLink = styled(NavLink)`
+const NavLinkStyled = styled(NavLink)`
     text-decoration: none;
     flex-direction: center;
     color: #8186a0;
