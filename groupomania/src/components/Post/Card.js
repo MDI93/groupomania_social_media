@@ -26,7 +26,6 @@ const Card = ({ post, refresh }) => {
 
     const modifyImageHandler = (e) => {
         setNewImage(e.target.files[0]);
-
     }
 
     const messageUpdateRef = useRef();
@@ -40,16 +39,11 @@ const Card = ({ post, refresh }) => {
 
         console.log("------newImage", newImage)
        
-        setPostData(prevState => ({
-            ...prevState.postData,
-            "message": updatedMessage,
-        }));
+        postData.message = updatedMessage
 
         const updateStateFormData = {
             "message": updatedMessage
         };
-
-        // console.log(updatedMessage)
 
         const formData = new FormData();
 
@@ -71,11 +65,11 @@ const Card = ({ post, refresh }) => {
                 })
                 const responseData = await response.json();
                     if(response.ok) {
-                    console.log("response data ok", responseData)
-                    setUpdatePost(false)
-                    // alert("Votre article a bien été modifié ! ;)")
+                        console.log("response data ok", responseData)
+                        setUpdatePost(false)
+                        postData.image = responseData.postObject.image
                     } else {
-                    console.log("Pas ok", responseData.error);  
+                        console.log("Pas ok", responseData.error);  
                     }
                 } catch(error) {
                     console.log("Error upload", error)
@@ -83,14 +77,7 @@ const Card = ({ post, refresh }) => {
                 };
         }
         uploadHandler();
-    }, [post._id, newImage]);
-
-    useEffect(() => {
-        if(!updatePost){
-            refresh();
-        }
-        console.log("update",updatePost, 'refresh', refresh)
-    }, [updatePost])
+    }, [post._id, newImage, postData]);
      
     return(
         <li className="card-container" key={post._id}>
@@ -108,7 +95,7 @@ const Card = ({ post, refresh }) => {
                 </StyledHeader>
                 <div className="card-middle">
                     <div className="card-img">
-                       { updatePost ? <StyledImgCard className="img" src={postData.image} alt={updatePost ? ("Image choisit par l'utilisateur"):(null)} /> }
+                        <StyledImgCard className="img" src={postData.image} alt={updatePost ? ("Image choisit par l'utilisateur"):(null)} />
                     { !updatePost ? 
                         ( null ) : (
                         <input  
@@ -135,7 +122,7 @@ const Card = ({ post, refresh }) => {
                 </div>
                 <StyledBtnDiv className="card-btn-container">
                     <LikeButton post={post} key={post._id}/>
-                    { authId.userId !== post._id || authId.isAdmin === true ? (
+                    { authId.userId === post.userId || authId.role === "admin" ? (
                         <StyledBtnUpdateDelete>
                         { !updatePost ? (
                             <StyledBtnCard 
@@ -234,11 +221,3 @@ const StyledSpanTimeStamp = styled.span`
     font-size: 14px;
     font-style: italic;
 `
-
-
-
-
-    
-
-   
-
