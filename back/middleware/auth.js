@@ -8,11 +8,13 @@ module.exports = (req, res, next) => {
         const token = req.headers.authorization.split(' ')[1];
         const decodedToken = jwt.verify(token, `${process.env.token_key}`);
         const userId = decodedToken.userId;
+        const role = decodedToken.role
             req.auth = {
-                userId: userId
+                userId: userId,
+                role: role
             };
         next();
     } catch(error) {
         res.status(401).json({ error });
     }
-};   
+};

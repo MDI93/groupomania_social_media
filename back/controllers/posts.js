@@ -13,22 +13,15 @@ exports.getAllPosts = (req, res, next) => {
 exports.createPost = async (req, res, next) => {
     
     const postObject = JSON.parse(req.body.post);
-    console.log("postObject-", postObject); 
-    // let formData = new FormData();
+    console.log("postObject", postObject);
 
-    // formData.append("image", image);
-
-    // formData.append("image", req.file.filename)
-
-    // console.log(formData.append)
-
-    // delete postObject._id;
-    // delete postObject.userId;
+    delete postObject._id;
+    delete postObject.userId;
 
     const newPost = new Posts ({
         ...postObject,
         userId: req.auth.userId,
-        // image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        image: (req.file ?`${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null),
         likes: 0,
         usersLiked: []
     });
@@ -59,7 +52,8 @@ exports.updatePost = (req, res, next) => {
     delete postObject.userId;
     Posts.findOne({ _id: req.params.id })
         .then((post) => {
-            if(post.userId !== req.auth.userId && post.userId !== req.auth.role){
+            if(post.userId !== req.auth.userId 
+                && post.userId !== req.auth.isAdmin){
                 res.status(401).json({ message: 'Unauthorized !' });
             } else {
                 Posts.updateOne(
@@ -76,10 +70,12 @@ exports.updatePost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     Posts.findOne({ _id: req.params.id })
         .then(post => {
-            if(post.userId !== req.auth.userId && post.userId !== req.auth.role){
+            console.log("back end deletePost", Posts)
+            if(post.userId !== req.auth.userId 
+                && post.userId !== req.auth.isAdmin){
                 res.status(401).json({ message: 'Unauthorized !'});
             } else {
-                const filename = post.image.split('/images/')[1];
+                const filename = post.image.split('/images/')[0];
                 fs.unlink(`images/${filename}`, 
                 () => {
                     Posts.deleteOne({ _id: req.params.id })
@@ -94,26 +90,19 @@ exports.deletePost = (req, res, next) => {
 // Ajouter un 'like'
 exports.likePost = (req, res, next) => {
     Posts.findOne({ _id: req.params.id })
-        .then((likeAdd) => {
-// Si like = 1, l'utilisateur aime (= like) le post              
-        if( !likeAdd.usersLiked.includes(req.body.userId) && req.body.like === 1 ){
+        .then((post) => {             
+        if( !post.usersLiked.includes(req.auth.userId) ){
             Posts.updateOne(
             { _id: req.params.id }, 
-            { $inc:{ likes: 1 }, $push: { usersLiked: req.body.userId }})
+            { $inc:{ likes: 1 }, $push: { usersLiked: req.auth.userId }})
             .then(() => res.status(201).json({ message: 'Like has been added !' }))  
-            .catch(error => res.status(400).json({ error }));         
-        }  
-// Si like = 0, l'utilisateur annule son 'like'   
-    else {
-    Posts.findOne({ _id: req.params.id })
-        .then((likeCanceled) => {
-        if( likeCanceled.usersLiked.includes(req.body.userId) && req.body.like === 0 ){
-            Posts.updateOne(
+            .catch(error => res.status(400).json({ error }));     
+        } else {
+        Posts.updateOne(
             { _id: req.params.id }, 
-            { $inc:{ likes: -1 }, $pull: { usersLiked: req.body.userId }}
+            { $inc:{ likes: -1 }, $pull: { usersLiked: req.auth.userId }}
             )
             .then(() => res.status(201).json({ message: 'Like has been canceled !' }))  
             .catch(error => res.status(400).json({ error }));
-    }})
-        .catch(error => res.status(404).json({ error }));
-    }})};
+        }
+})};
