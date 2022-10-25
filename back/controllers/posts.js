@@ -53,7 +53,7 @@ exports.updatePost = (req, res, next) => {
     Posts.findOne({ _id: req.params.id })
         .then((post) => {
             if(post.userId !== req.auth.userId 
-                && post.userId !== req.auth.isAdmin){
+                && post.userId !== req.auth.role){
                 res.status(401).json({ message: 'Unauthorized !' });
             } else {
                 Posts.updateOne(
@@ -72,7 +72,7 @@ exports.deletePost = (req, res, next) => {
         .then(post => {
             console.log("back end deletePost", Posts)
             if(post.userId !== req.auth.userId 
-                && post.userId !== req.auth.isAdmin){
+                && post.userId !== req.auth.role){
                 res.status(401).json({ message: 'Unauthorized !'});
             } else {
                 const filename = post.image.split('/images/')[0];
