@@ -5,7 +5,7 @@ import { dateParser } from "../Routes/utils";
 import DeleteButton from "./DeleteButton";
 import LikeButton from "./LikeButton";
 
-const Card = ({ post, refresh }) => {
+const Card = ({ post }) => {
     const authId = useContext(AuthUserContext);
     const [isLoading, setIsLoading] = useState(true);
     const [postData, setPostData] = useState(post);

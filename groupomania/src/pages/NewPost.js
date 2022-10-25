@@ -6,7 +6,6 @@ import FormNewPost from '../components/Post/FormNewPost'
 export default function NewPost () {
     const authId = useContext(AuthUserContext);
     const isLoggedIn = authId.isLoggedIn
-    console.log("home", authId);
 
     if(!isLoggedIn) {
         return <Navigate to='/' />

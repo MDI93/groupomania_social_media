@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Card from './Post/Card'
 
-const Thread = ({ data, onRefresh }) => {
+const Thread = ({ data }) => {
     const [dataThread, setDataThread] = useState(data, true);
     const posts = data.data;
 
@@ -16,11 +16,7 @@ const Thread = ({ data, onRefresh }) => {
             <StyledUl className="card-list-posts">
             {posts &&
                 posts.map((post) => {
-                    return <Card 
-                        post={post} 
-                        // onRefresh={onRefresh} 
-                        key={post._id}
-                        />
+                    return <Card post={post} key={post._id} />
                 })}
             </StyledUl>
         </div>
