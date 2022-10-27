@@ -19,7 +19,7 @@ const postsSchema = mongoose.Schema({
         message: {
             type: String,
             required: true,
-            maxLength: 300
+            maxLength: 500
         },
         likes: {
             type: Number,
