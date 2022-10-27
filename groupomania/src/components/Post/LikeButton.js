@@ -8,11 +8,9 @@ const LikeButton = ({ post }) => {
     const authId = useContext(AuthUserContext);
     const isLoggedIn = authId.isLoggedIn;
 
-    // setLiked(post.usersLiked.include(authId.userId))
     const handleLike = () => {
         setActive((isActive) => !isActive)
         setLiked("fullHeart")
-        console.log("active", isActive)
     }
 
     const like = () => {
@@ -29,13 +27,12 @@ const LikeButton = ({ post }) => {
             })
             const responseData = await response.json();
                 if(response.ok) {
-                console.log("response data ok", responseData)
                 return post && post.likes
                 } else {
                 console.log("Pas ok", responseData.error);  
                 }
             } catch(error) {
-                    console.log("Error Liked", error)
+                console.log("Error Liked", error)
             };
         }   
         fetchLike(); 
@@ -45,34 +42,32 @@ const LikeButton = ({ post }) => {
 
     useEffect(() => {
         setLiked("fullHeart")
-        console.log("use effect setliked")
-    }, [isLoggedIn, isActive, liked, post])
-    console.log("coeur", liked)
+    }, [isLoggedIn, isActive, liked, post]);
 
     return(
-        <ContainerLike className="like-container">
-            { isLoggedIn ? (
-                <div>
+        <>
+            { !post.usersLiked.includes(authId.userId) ? (
+                <ContainerLike className="like-container">
                     <StyledEmptyLikeBtn 
                         className="emptyHeart"
                         onClick={like} 
                         alt="Bouton like">
-                    { isActive ? <i class="fa-regular fa-heart"></i> : <i  class="fa-solid fa-heart"></i> }
+                    { isActive ? <i className="fa-regular fa-heart"></i> : <i  class="fa-solid fa-heart"></i> }
                     </StyledEmptyLikeBtn>
-                    { !isActive ? <span>{post.likes + 1}</span> : <span>{post.likes}</span> }
-                </div>
+                    { !isActive ? <UsersLiked>{post.likes + 1}</UsersLiked> : <UsersLiked>{post.likes}</UsersLiked> }
+                </ContainerLike>
             ) : (
-                <div>
+                <ContainerLike className="like-container">
                     <StyledFilledLikeBtn 
                         className="fullHeart"
                         onClick={like} 
                         alt="Bouton like">
-                    { isActive ? <i  class="fa-solid fa-heart"></i> : <i class="fa-regular fa-heart"></i>}
+                    { isActive ? <i  className="fa-solid fa-heart"></i> : <i class="fa-regular fa-heart"></i>}
                     </StyledFilledLikeBtn>
-                    { !isActive ? <span>{post.likes - 1}</span> : <span>{post.likes}</span> }
-                </div>
+                    { !isActive ? <UsersLiked>{post.likes - 1}</UsersLiked> : <UsersLiked>{post.likes}</UsersLiked> }
+                </ContainerLike>
             )}
-        </ContainerLike>
+        </>
     )
 };
 
@@ -97,9 +92,10 @@ const StyledEmptyLikeBtn = styled.i`
 const StyledFilledLikeBtn = styled.i`
     font-size: 25px;
     color: #FD2D01;
-`
-const StyledUsersLiked = styled.span`
-    font-size: 25px;
     margin-left: 10px;
     margin-right: 10px;
+`
+const UsersLiked = styled.span`
+    display: flex;
+    justify-content: center;
 `

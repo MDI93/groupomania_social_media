@@ -20,7 +20,7 @@ const Card = ({ post, onRefresh }) => {
 
     const updateHandler = useCallback(() => {
         setUpdatePost((updatePost) => !updatePost)
-    }, [updatePost]);
+    }, []);
 
     const modifyImageHandler = (e) => {
         setNewImage(e.target.files[0]);
