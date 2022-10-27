@@ -17,10 +17,11 @@ const StyledFooter = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-top: 80px;
+    margin-top: 120px;
     border-radius: 10px 10px;
     background: linear-gradient(#FD2D01, white);
     height: 40px;
+    bottom: 0;
 `
 const StyledLogo = styled.img`
     display: flex;

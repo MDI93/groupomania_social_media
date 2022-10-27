@@ -81,6 +81,7 @@ const Form = styled.form`
     color: #8186a0;
     font-size: 18px;
     width: 400px;
+    min-height: 330px;
     padding: 10px;
     border-radius: 20px 20px;
     box-shadow: 2px 2px 10px grey;
@@ -91,7 +92,7 @@ const Label = styled.label`
 const Input = styled.input`
     width: 60%;
     border-radius: 15px 15px;
-    height: 30px;
+    min-height: 30px;
     margin: 5px;
 `
 const Btn = styled.input`
