@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from 'axios';
-import Home from '../../pages/Home'
+import { useNavigate } from "react-router-dom";
+
 
 const FormNewPost = () => {
     const [formNewPostSubmit, setFormNewPostSubmit] = useState(false);
@@ -9,13 +10,20 @@ const FormNewPost = () => {
     const [lastName, setLastName] = useState();
     const [message, setMessage] = useState();
     const [image, setImage] = useState();
-    const [errorPost, setErrorPost] = useState(false);
+    const [error, setError] = useState(false);
+    const navigate = useNavigate();
 
     const handleFormNewPost = (e) => {
         e.preventDefault();
+
+        if(firstName.trim().length === 0 || lastName.trim().length === 0){
+            setError({
+                emptyInput: "Ce champ est requis"
+            })
+            return;
+        };
      
         let formData = new FormData();
-        console.log("message", formData.message)
         formData.append("post", JSON.stringify({
             firstName: firstName,
             lastName: lastName,
@@ -25,9 +33,7 @@ const FormNewPost = () => {
         let addImage;
         if(e.target.files && e.target.files[0]){
             addImage = e.target.files[0]
-            console.log("------Event", e.target.files[0])
-        }
-        console.log("------newImage", addImage)
+        };
        
         setFormNewPostSubmit({
             "message": message,
@@ -46,11 +52,11 @@ const FormNewPost = () => {
                 "Content-Type": "multipart/form-data"
             },
         }).then((res) => {
-            console.log(res)
             if (res.error) {
-                setErrorPost(res.error)
+                setError(res.error)
             } else {
                 setFormNewPostSubmit(true);
+                navigate("/home")
             }
         })
         .catch((error) => console.log(error))
@@ -58,7 +64,6 @@ const FormNewPost = () => {
 
     const changeHandler = (e) => {
         setImage(e.target.files[0]);
-        console.log("stock image", e.target.files[0])
     };
 
     const cancelPost = () => {
@@ -72,8 +77,7 @@ const FormNewPost = () => {
         <>
         {formNewPostSubmit ? (
         <>
-            <Home />
-            {alert("Bravo! Votre article a bien été créé. :)")}
+            {alert("Votre article a bien été créé !")}
         </>
         ) : (
             <StyledFormContainer>
@@ -86,6 +90,8 @@ const FormNewPost = () => {
                             onChange={(e) => setFirstName(e.target.value)}
                             value={firstName}
                         />
+                        {error &&
+                        <SpanError>{error.emptyInput}</SpanError>}
                         <br/>
                     <label htmlFor="lastName">Nom</label>
                         <StyledInput
@@ -94,6 +100,8 @@ const FormNewPost = () => {
                             onChange={(e) => setLastName(e.target.value)}
                             value={lastName}
                         />
+                        {error &&
+                        <SpanError>{error.emptyInput}</SpanError>}
                         <br/>
                     <label htmlFor="image">Insérer une image</label>
                         <StyledInputFile
@@ -111,6 +119,8 @@ const FormNewPost = () => {
                             onChange={(e) => setMessage(e.target.value)}
                             value={message}
                         />
+                        {error &&
+                        <SpanError>{error.emptyInput}</SpanError>}
                         <br />
                         <ContainerButton>
                             {firstName || lastName || message || image ? (
@@ -123,9 +133,6 @@ const FormNewPost = () => {
                             </StyledBtnSubmit>
                         </ContainerButton>
                         <br/>
-                        {errorPost &&
-                        <SpanError>{errorPost}</SpanError>
-                        }
                     </StyledForm>
                 </StyledFormContainer>
             )}
