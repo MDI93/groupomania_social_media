@@ -25,7 +25,6 @@ export default function Home() {
             setData({
               data: responseData
             }) 
-            console.log("++++++", responseData)
           } else {
             throw new Error(responseData.error);
           }
@@ -39,11 +38,19 @@ export default function Home() {
       };
     }, [isLoggedIn, fetchData])
 
+    const onRefresh = () => {
+      console.log("-------On refresh");
+      // fetchData()
+    }
+
     return( 
         <>
           {!isLoggedIn && <Navigate to='/' replace="true"/>}
           {isLoggedIn && (
-              <Thread data={data} />
+              <Thread 
+                data={data} 
+                onRefresh={onRefresh}
+              />
           )}
         </>
     )

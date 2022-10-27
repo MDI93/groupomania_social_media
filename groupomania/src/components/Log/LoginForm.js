@@ -37,7 +37,6 @@ const LoginForm = () => {
                 setData(responseData);
                 authId.login(responseData);
                 navigate('/home', {replace: true})
-                console.log("response data", responseData)
             } else {
                 setErrorEmailPassword(responseData.error);  
             }  
@@ -47,12 +46,6 @@ const LoginForm = () => {
     }
     fetchPost();
 }
-    
-
-    // const errorHandler = () => {
-    //     setErrorEmailPassword(null)
-    // }
-
     return(
         <Form onSubmit={handleLogin}>
             <Label htmlFor="login">Déjà enregistrer</Label>

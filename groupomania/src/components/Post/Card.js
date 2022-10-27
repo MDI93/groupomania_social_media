@@ -5,7 +5,7 @@ import { dateParser } from "../Routes/utils";
 import DeleteButton from "./DeleteButton";
 import LikeButton from "./LikeButton";
 
-const Card = ({ post }) => {
+const Card = ({ post, onRefresh }) => {
     const authId = useContext(AuthUserContext);
     const [isLoading, setIsLoading] = useState(true);
     const [postData, setPostData] = useState(post);
@@ -20,8 +20,6 @@ const Card = ({ post }) => {
 
     const updateHandler = useCallback(() => {
         setUpdatePost((updatePost) => !updatePost)
-        console.log("updateHandler")
-        console.log(updatePost)
     }, [updatePost]);
 
     const modifyImageHandler = (e) => {
@@ -33,13 +31,9 @@ const Card = ({ post }) => {
     const modifyHandler = useCallback((e) => {
         e.preventDefault();
 
-        console.log("event", e)
         const updatedMessage = messageUpdateRef.current.value;
-        console.log("modif textarea", updatedMessage)
 
-        console.log("------newImage", newImage)
-       
-        postData.message = updatedMessage
+        postData.message = updatedMessage;
 
         const updateStateFormData = {
             "message": updatedMessage
@@ -49,9 +43,6 @@ const Card = ({ post }) => {
 
         formData.append("image", newImage);
         formData.append("post", JSON.stringify(updateStateFormData));
-
-        console.log(formData.get('image'))
-        console.log(formData.get('post'))
 
         const url = `http://localhost:4000/api/posts/${post._id}`
         const uploadHandler = async () => {
@@ -66,8 +57,8 @@ const Card = ({ post }) => {
                 const responseData = await response.json();
                     if(response.ok) {
                         console.log("response data ok", responseData)
-                        setUpdatePost(false)
-                        postData.image = responseData.postObject.image
+                        setUpdatePost(false);
+                        postData.image = responseData.postObject.image;
                     } else {
                         console.log("Pas ok", responseData.error);  
                     }
@@ -141,7 +132,11 @@ const Card = ({ post }) => {
                                 Valider
                             </StyledBtnCard>
                         )}
-                            <DeleteButton id={post._id} post={post} />
+                            <DeleteButton 
+                                id={post._id} 
+                                post={post}
+                                onRefresh={onRefresh} 
+                            />
                         </StyledBtnUpdateDelete>
                     ) : (null)}
                     </StyledBtnDiv>

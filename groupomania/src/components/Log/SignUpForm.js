@@ -37,12 +37,14 @@ function SignUpForm() {
     const regexpassword = (value) => {
         return verifPassword.test(value)
     };
+
     if(!regexpassword(password)){
         setError({
             regexPassword: "Mot de passe doit contenir au minimum 8 caractères, et au moins un chiffre et une majuscule"
         })
         return;
     };
+
     const url = "http://localhost:4000/api/auth/signup"
     const fetchPost = async () => {
         try{
@@ -61,13 +63,10 @@ function SignUpForm() {
             if(response.ok) {
                 setData(responseData);
                 setFormSubmit(true);
-                console.log("response data", responseData)
             } else {
                 setError(responseData.error);  
-                console.log("error else",responseData.error)
             } 
             if(responseData && responseData.error){
-                console.log("dans le if")
                 setError({
                     takenEmail: "Cet adresse e-mail existe déjà."
                 })

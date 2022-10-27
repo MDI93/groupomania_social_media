@@ -14,7 +14,6 @@ export const AuthUserContext = createContext(defaultValue);
 const tokenStorage = localStorage.getItem('token');
 const userIdStorage = localStorage.getItem('userId');
 const roleStorage = localStorage.getItem('role');
-// console.log("-----------tokenStorage-------------", tokenStorage);
 
 export const AuthUserProvider = (props) => {
 
@@ -29,12 +28,12 @@ export const AuthUserProvider = (props) => {
     localStorage.setItem("token", authedToken.token);
     localStorage.setItem("userId", authedToken.userId);
     localStorage.setItem("role", authedToken.role);
-  }
+  };
 
   const logout = () => {
     setAuthedToken(null);
     localStorage.clear();
-  }
+  };
 
   const userIsLoggedIn = !!authedToken;
 
@@ -45,9 +44,7 @@ export const AuthUserProvider = (props) => {
     role: role,
     login: login,
     logout: logout
-    }
-
-  // console.log(userIsLoggedIn, "authedToken", authedToken, "authId", authId)
+  };
 
   return (
   <AuthUserContext.Provider value={authId}>
