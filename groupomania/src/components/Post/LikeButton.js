@@ -14,7 +14,6 @@ const LikeButton = ({ post }) => {
     }
 
     const like = () => {
-        console.log("je suis dans le fecth like")
         const url = `http://localhost:4000/api/posts/${post._id}/like`;
         const fetchLike = async () => {
             try{

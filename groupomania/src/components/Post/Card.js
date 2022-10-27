@@ -5,7 +5,7 @@ import { dateParser } from "../Routes/utils";
 import DeleteButton from "./DeleteButton";
 import LikeButton from "./LikeButton";
 
-const Card = ({ post, onRefresh }) => {
+const Card = ({ post }) => {
     const authId = useContext(AuthUserContext);
     const [isLoading, setIsLoading] = useState(true);
     const [postData, setPostData] = useState(post);
@@ -135,7 +135,6 @@ const Card = ({ post, onRefresh }) => {
                             <DeleteButton 
                                 id={post._id} 
                                 post={post}
-                                onRefresh={onRefresh} 
                             />
                         </StyledBtnUpdateDelete>
                     ) : (null)}

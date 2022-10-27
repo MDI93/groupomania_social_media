@@ -69,7 +69,6 @@ exports.updatePost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     Posts.findOne({ _id: req.params.id })
         .then(post => {
-            console.log("back end deletePost", Posts)
             if(post.userId !== req.auth.userId && post.userId === req.auth.role){
                 res.status(401).json({ message: 'Unauthorized !'});
             } else {

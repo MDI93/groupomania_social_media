@@ -13,16 +13,18 @@ const DeleteButton = ({ post }) => {
   const deleteHandler = (e) => {
     axios.delete(`${process.env.REACT_APP_URL_API}/posts/${post._id}`, {
       headers:{
-        Authorization: `Bearer ${localStorage.getItem("token")}`
+        Authorization: `Bearer ${authId.auth}`
       },
       data: post.userId
     })
     .then((res) => {
-      console.log(res)
+        console.log(res)
       if(res.error) {
         setErrorMessage(res.error);
       } else {
-          setDeletePost(false);
+        setDeletePost(false);
+        
+        window.location.reload();
       }
     })
     .catch((error) => console.log(error))
@@ -34,14 +36,15 @@ const DeleteButton = ({ post }) => {
       <StyledBtnDiv>
         <StyledBtnCard 
           onClick={() => {if(window.confirm('Voulez-vous vraiment supprimer cet article ?')){
-            deleteHandler();}
+            deleteHandler();
+            }
           }}
           onChange={(e) => setDeletePost(e.target.value)}
           className="card-btn-delete" 
           alt="Bouton pour supprimer l'article"
           value={deletePost}
           >
-          <i class="fa-solid fa-trash"></i>
+          <i className="fa-solid fa-trash"></i>
         </StyledBtnCard>
       </StyledBtnDiv>
       )}

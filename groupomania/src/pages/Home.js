@@ -37,20 +37,13 @@ export default function Home() {
         fetchData()
       };
     }, [isLoggedIn, fetchData])
-
-    const onRefresh = () => {
-      console.log("-------On refresh");
-      // fetchData()
-    }
-
+    
     return( 
         <>
           {!isLoggedIn && <Navigate to='/' replace="true"/>}
           {isLoggedIn && (
               <Thread 
-                data={data} 
-                onRefresh={onRefresh}
-              />
+                data={data} />
           )}
         </>
     )
