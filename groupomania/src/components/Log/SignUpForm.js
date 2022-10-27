@@ -128,7 +128,8 @@ const Form = styled.form`
     justify-content: center;
     color: #8186a0;
     font-size: 18px;
-    width: 400px;   
+    width: 400px;  
+    min-height: 350px; 
     border-radius: 20px 20px;
     box-shadow: 2px 2px 10px grey;
 `
@@ -158,6 +159,7 @@ const Error = styled.span`
     margin-right: 10px;
     margin-left: 10px;
     color: red;
+    text-align: center;
     padding-bottom:5px;
     font-size: 14px;
     left: 50%;
