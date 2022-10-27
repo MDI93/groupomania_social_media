@@ -52,8 +52,7 @@ exports.updatePost = (req, res, next) => {
     delete postObject.userId;
     Posts.findOne({ _id: req.params.id })
         .then((post) => {
-            if(post.userId !== req.auth.userId 
-                && post.userId !== req.auth.role){
+            if(post.userId !== req.auth.userId && req.auth.role === "admin"){
                 res.status(401).json({ message: 'Unauthorized !' });
             } else {
                 Posts.updateOne(
@@ -71,17 +70,16 @@ exports.deletePost = (req, res, next) => {
     Posts.findOne({ _id: req.params.id })
         .then(post => {
             console.log("back end deletePost", Posts)
-            if(post.userId !== req.auth.userId 
-                && post.userId !== req.auth.role){
+            if(post.userId !== req.auth.userId && post.userId === req.auth.role){
                 res.status(401).json({ message: 'Unauthorized !'});
             } else {
-                const filename = post.image.split('/images/')[0];
-                fs.unlink(`images/${filename}`, 
-                () => {
-                    Posts.deleteOne({ _id: req.params.id })
-                        .then(() => { res.status(200).json({ message: 'Post has been deleted !' })})
-                        .catch(error => res.status(401).json({ error }));
-                })
+                    const filename = post.image.split('/images/')[0];
+                    fs.unlink(`images/${filename}`,
+                    () => {
+                        Posts.deleteOne({ _id: req.params.id })
+                            .then(() => { res.status(200).json({ message: 'Post has been deleted !' })})
+                            .catch(error => res.status(401).json({ error }));
+                    })
             }
         })
         .catch( error => res.status(500).json({ error }));
