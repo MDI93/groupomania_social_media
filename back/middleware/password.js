@@ -6,9 +6,9 @@ const passwordSchema = new passwordValidator();
 passwordSchema
 .is().min(8)                                    
 .is().max(50)                                  
-.has().uppercase()                              
+.has().uppercase(1)                              
 .has().lowercase()                             
-.has().digits(2)                                
+.has().digits(1)                                
 .has().not().spaces()                    
 
 module.exports = (req, res, next) => {
