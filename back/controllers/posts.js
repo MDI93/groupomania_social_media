@@ -72,16 +72,26 @@ exports.deletePost = (req, res, next) => {
             if(post.userId !== req.auth.userId && post.userId === req.auth.role){
                 res.status(401).json({ message: 'Unauthorized !'});
             } else {
+                if(post.image){
                     const filename = post.image.split('/images/')[0];
                     fs.unlink(`images/${filename}`,
                     () => {
                         Posts.deleteOne({ _id: req.params.id })
                             .then(() => { res.status(200).json({ message: 'Post has been deleted !' })})
-                            .catch(error => res.status(401).json({ error }));
+                            .catch(error => res.status(400).json({ error }));
                     })
+                } else {
+                    Posts.deleteOne({ _id: req.params.id })
+                            .then(() => { res.status(200).json({ message: 'Post has been deleted !' })})
+                            .catch(error => res.status(400).json({ error }));
+                }
+                    
             }
         })
-        .catch( error => res.status(500).json({ error }));
+        .catch( error => {
+            console.log(error)
+            res.status(500).json({ error })
+        });
 };
 
 // Ajouter un 'like'
