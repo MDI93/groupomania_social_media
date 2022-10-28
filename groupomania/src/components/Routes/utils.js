@@ -15,3 +15,5 @@ export const dateParser = (num) => {
 
   return date.toString();
 };
+
+// Permet de convertir le timeStamp en un format plus lisible

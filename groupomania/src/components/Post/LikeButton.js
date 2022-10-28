@@ -8,11 +8,13 @@ const LikeButton = ({ post }) => {
     const authId = useContext(AuthUserContext);
     const isLoggedIn = authId.isLoggedIn;
 
+// Gère le changement d'état du like
     const handleLike = () => {
         setActive((isActive) => !isActive)
         setLiked("fullHeart")
     }
 
+// Envoie une requete POST à l'API
     const like = () => {
         const url = `http://localhost:4000/api/posts/${post._id}/like`;
         const fetchLike = async () => {

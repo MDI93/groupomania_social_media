@@ -10,11 +10,13 @@ function SignUpForm() {
     const [error, setError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+// Requête pour s'inscrire
     const handleSignUp = (event) => {
         event.preventDefault();  
         
     setIsLoading(true);
-        
+
+// Vérifie si les inputs sont vides
     if(email.trim().length === 0 || password.trim().length === 0){
         setError({
             message: "Entrer votre adresse e-mail et/ou votre mot de passe."
@@ -22,6 +24,7 @@ function SignUpForm() {
         return;
     };
 
+// Vérifie le format de l'adresse e-mail
     let verifEmail = /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-{1,3}]+)*$/
     const regexEmail = (value) => {
         return verifEmail.test(value)
@@ -33,6 +36,7 @@ function SignUpForm() {
         return;
     };
 
+// Vérifie les caractères a utiliser pour le mot de passe
     let verifPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
     const regexpassword = (value) => {
         return verifPassword.test(value)

@@ -18,16 +18,19 @@ const Card = ({ post }) => {
         setIsLoading(false);
     }, [postData])
 
+// Gère l'état pour permettre de modifier le POST
     const updateHandler = useCallback(() => {
         setUpdatePost((updatePost) => !updatePost)
     }, []);
 
+// Gère l'état de l'ajout de l'image
     const modifyImageHandler = (e) => {
         setNewImage(e.target.files[0]);
     }
 
     const messageUpdateRef = useRef();
 
+// Mise à jour du POST avec une requête vers l'API
     const modifyHandler = useCallback((e) => {
         e.preventDefault();
 

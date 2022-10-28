@@ -17,7 +17,8 @@ const LoginForm = () => {
         event.preventDefault();
     
     setIsLoading(true)    
-    
+
+// Requête pour se connecter
     const url = "http://localhost:4000/api/auth/login"
     const fetchPost = async () => {
         try{

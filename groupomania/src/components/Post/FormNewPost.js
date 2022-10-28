@@ -22,7 +22,7 @@ const FormNewPost = () => {
             })
             return;
         };
-     
+
         let formData = new FormData();
         formData.append("post", JSON.stringify({
             firstName: firstName,
@@ -30,6 +30,7 @@ const FormNewPost = () => {
             message: message
         }));
 
+// Ajoute le format image
         let addImage;
         if(e.target.files && e.target.files[0]){
             addImage = e.target.files[0]
@@ -40,6 +41,7 @@ const FormNewPost = () => {
             "image": addImage
         });
 
+// Envoie une requête pour créer un POST
         formData.append("image", image);
         axios.create({
             baseURL: "http://localhost:4000/api",

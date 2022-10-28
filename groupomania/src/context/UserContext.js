@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react';
 
+// Valeur par défaut
 const defaultValue = {
   auth: null,
   userIsLoggedIn: false,
@@ -11,6 +12,7 @@ const defaultValue = {
 
 export const AuthUserContext = createContext(defaultValue);
 
+// On stocke ces keys dans le local storage
 const tokenStorage = localStorage.getItem('token');
 const userIdStorage = localStorage.getItem('userId');
 const roleStorage = localStorage.getItem('role');
@@ -21,6 +23,7 @@ export const AuthUserProvider = (props) => {
   const [userId, setUserId] = useState(userIdStorage);
   const [role, setRole] = useState(roleStorage);
 
+// Constante au moment de l'authentification
   const login = (authedToken) => {
     setAuthedToken(authedToken.token);
     setUserId(authedToken.userId);
@@ -30,6 +33,7 @@ export const AuthUserProvider = (props) => {
     localStorage.setItem("role", authedToken.role);
   };
 
+// Constante au moment de la deconnexion
   const logout = () => {
     setAuthedToken(null);
     localStorage.clear();
@@ -37,6 +41,7 @@ export const AuthUserProvider = (props) => {
 
   const userIsLoggedIn = !!authedToken;
 
+// Variable pour permettre de vérifier qui est l'utilisateur et ce qu'il peut faire
   const authId = {
     auth: authedToken,
     isLoggedIn: userIsLoggedIn,

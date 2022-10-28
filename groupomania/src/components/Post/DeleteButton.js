@@ -11,6 +11,7 @@ const DeleteButton = ({ post }) => {
 
 
   const deleteHandler = (e) => {
+// Requête pour supprimer un POST
     axios.delete(`${process.env.REACT_APP_URL_API}/posts/${post._id}`, {
       headers:{
         Authorization: `Bearer ${authId.auth}`

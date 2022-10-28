@@ -8,6 +8,7 @@ const IndexLog = () => {
     const [signUpModal, setSignUpModal] = useState(false);
     const [loginModal, setLoginModal] = useState(true);
 
+// Change l'état de la modal d'authenfication
     const handleModals = (e) => {
         if(e.target.id === 'signUp'){
             setLoginModal(false);
