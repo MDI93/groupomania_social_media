@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import LoginForm from "./LoginForm";
 
 function SignUpForm() {
@@ -89,10 +88,11 @@ function SignUpForm() {
             {alert("Bravo! vous êtes inscrit, veuillez-vous connecter.")}
         </>    
             ) : (
-        <Form action="" onSubmit={handleSignUp} id="signup-form">
-            <Label htmlFor="email">Créer un nouveau compte</Label>
-            <Label htmlFor="email">Adresse e-mail</Label>
-            <Input 
+        <form action="" onSubmit={handleSignUp} id="signup-form" className="form-signup-container">
+            <label htmlFor="email" className="form-label">Créer un nouveau compte</label>
+            <label htmlFor="email" className="form-label">Adresse e-mail</label>
+            <input 
+                className="form-input"  
                 type="text" 
                 name="email" 
                 id="email" 
@@ -100,11 +100,12 @@ function SignUpForm() {
                 value={email}
             />
             {error && 
-            <Error>{error.regexEmail}</Error> }
+            <span className="form-signup-error">{error.regexEmail}</span> }
             {error && 
-            <Error>{error.takenEmail}</Error> }
-            <Label htmlFor="email">Mot de passe</Label>
-            <Input 
+            <span className="form-signup-error">{error.takenEmail}</span> }
+            <label htmlFor="email" className="form-label">Mot de passe</label>
+            <input
+                className="form-input" 
                 type="password" 
                 name="password" 
                 id="password" 
@@ -112,63 +113,16 @@ function SignUpForm() {
                 value={password}
             />
             {error && 
-            <Error>{error.regexPassword}</Error>
+            <span className="form-signup-error">{error.regexPassword}</span>
             }
-            <Btn type="submit" value="S'enregistrer" />  
+            <input className="form-input-submit" type="submit" value="S'enregistrer" />  
             {error && 
-            <Error>{error.message}</Error>}
+            <span className="form-signup-error">{error.message}</span>}
             {/* {isLoading && <p>En cours de chargement...</p>}  */}
-        </Form>
+        </form>
         )}
         </>
     )
-}
-
-const Form = styled.form`
-    background-color: #4E5166;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #8186a0;
-    font-size: 18px;
-    width: 400px;  
-    min-height: 350px; 
-    border-radius: 20px 20px;
-    box-shadow: 2px 2px 10px grey;
-`
-const Label = styled.label`
-    margin: 10px;
-`
-const Input = styled.input`
-    width: 60%;
-    border-radius: 15px 15px;
-    min-height: 30px;
-    margin: 5px;
-`
-const Btn = styled.input`
-    color: #8186a0;
-    font-size: 18px;
-    border-radius: 15px 15px;
-    height: 40px;
-    width: 40%;
-    margin: 15px;
-    &:hover {
-        background-color: #FFD7D7;
-        cursor: pointer;
-  	    transform: scale(1.08);
-    } 
-`
-const Error = styled.span`
-    margin-right: 10px;
-    margin-left: 10px;
-    color: red;
-    text-align: center;
-    padding-bottom:5px;
-    font-size: 14px;
-    left: 50%;
-    right: 50%; 
-`
-
+};
 
 export default SignUpForm;

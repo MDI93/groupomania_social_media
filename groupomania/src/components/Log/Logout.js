@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthUserContext } from "../../context/UserContext";
-import styled from "styled-components";
 
 const Logout = () => {
     const authId = useContext(AuthUserContext);
@@ -10,23 +9,14 @@ const Logout = () => {
         <>
         {isLoggedIn &&
                 <Link onClick={authId.logout}>
-                    <StyledDiv>
-                        <StyledIcon className="fa-solid fa-right-from-bracket"></StyledIcon>
-                    </StyledDiv>   
+                    <div className="logout-icon-container">
+                        <i className="fa-solid fa-right-from-bracket"></i>
+                    </div>   
                 </Link>
             }
         </>
     )
 }
 
-const StyledDiv = styled.div`
-    padding: 18px 10px 0px 0px
-`
-const StyledIcon = styled.i`
-    font-size: 22px;
-    :hover {
-        color: red;
-        }
-`
 
 export default Logout

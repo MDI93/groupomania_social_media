@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useContext, useState } from 'react'
-import styled from 'styled-components';
 import { AuthUserContext } from '../../context/UserContext';
 
 const DeleteButton = ({ post }) => {
@@ -34,8 +33,8 @@ const DeleteButton = ({ post }) => {
   return (
     <>
     {isLoggedIn && (
-      <StyledBtnDiv>
-        <StyledBtnCard 
+      <div className="delete-btn-container"key={post._id}>
+        <button
           onClick={() => {if(window.confirm('Voulez-vous vraiment supprimer cet article ?')){
             deleteHandler();
             }
@@ -46,30 +45,11 @@ const DeleteButton = ({ post }) => {
           value={deletePost}
           >
           <i className="fa-solid fa-trash"></i>
-        </StyledBtnCard>
-      </StyledBtnDiv>
+        </button>
+      </div>
       )}
     </>
     
   )};
 
 export default DeleteButton;
-
-
-const StyledBtnDiv = styled.div`
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-`
-const StyledBtnCard = styled.button`
-    color: #8186a0;
-    font-size: 18px;
-    border-radius: 20px;
-    height: 30px;
-    &:hover {
-        color: red;
-        background-color: #FFD7D7;
-        cursor: pointer;
-  	    transform: scale(1.08);
-    } 
-`

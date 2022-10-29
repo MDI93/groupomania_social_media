@@ -1,18 +1,15 @@
+import React from 'react';
 import IndexRoutes from './components/Routes/index'
-import styled from 'styled-components';
 import Footer from './components/Footer';
 
 const App = () => {
   return (
-    <StyledBody className='body'>
+    <div className='body'>
       <IndexRoutes />
       <Footer />
-    </StyledBody>  
+    </div>  
   );
-}
+};
 
 export default App;
 
-const StyledBody = styled.div`
-  font-family: 'Lato', sans serif;
-`

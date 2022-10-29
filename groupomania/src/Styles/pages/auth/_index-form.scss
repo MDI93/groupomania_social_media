@@ -1,0 +1,46 @@
+.form-container {
+    .form-nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: auto;
+    }
+
+    ;
+
+    .form-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        margin: 10px;
+        color: #8186a0;
+        text-decoration: none;
+        font-size: 18px;
+        width: 150px;
+        background-color: #5555;
+        border-radius: 20px 20px;
+        box-shadow: 2px 2px 10px grey;
+
+        &:hover {
+            color: #FFD7D7;
+            transform: scale(1.1)
+        }
+    }
+
+    ;
+
+    .form-modal {
+        display: flex;
+        justify-content: center;
+        padding: 15px;
+        color: #8186a0;
+        text-decoration: none;
+        font-size: 18px;
+        height: 300px;
+    }
+
+    ;
+}
+
+;

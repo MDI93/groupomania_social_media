@@ -53,7 +53,7 @@ const LikeButton = ({ post }) => {
                         className="emptyHeart"
                         onClick={like} 
                         alt="Bouton like">
-                    { isActive ? <i className="fa-regular fa-heart"></i> : <i  class="fa-solid fa-heart"></i> }
+                    { isActive ? <i className="fa-regular fa-heart"></i> : <i  className="fa-solid fa-heart"></i> }
                     </StyledEmptyLikeBtn>
                     { !isActive ? <UsersLiked>{post.likes + 1}</UsersLiked> : <UsersLiked>{post.likes}</UsersLiked> }
                 </ContainerLike>
@@ -63,7 +63,7 @@ const LikeButton = ({ post }) => {
                         className="fullHeart"
                         onClick={like} 
                         alt="Bouton like">
-                    { isActive ? <i  className="fa-solid fa-heart"></i> : <i class="fa-regular fa-heart"></i>}
+                    { isActive ? <i  className="fa-solid fa-heart"></i> : <i className="fa-regular fa-heart"></i>}
                     </StyledFilledLikeBtn>
                     { !isActive ? <UsersLiked>{post.likes - 1}</UsersLiked> : <UsersLiked>{post.likes}</UsersLiked> }
                 </ContainerLike>
@@ -76,14 +76,14 @@ export default LikeButton;
 
 const ContainerLike = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     align-items: center;
+    width: 15%;
 `
 
 const StyledEmptyLikeBtn = styled.i`
-    font-size: 25px;
+    font-size: 30px;
     margin-left: 10px;
-    margin-right: 10px;
     color: #FD2D01;
     &:hover {
         cursor: pointer;
@@ -91,12 +91,13 @@ const StyledEmptyLikeBtn = styled.i`
     } 
 `
 const StyledFilledLikeBtn = styled.i`
-    font-size: 25px;
+    font-size: 30px;
     color: #FD2D01;
     margin-left: 10px;
-    margin-right: 10px;
 `
 const UsersLiked = styled.span`
     display: flex;
     justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
 `

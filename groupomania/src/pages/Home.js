@@ -8,6 +8,7 @@ export default function Home() {
     const isLoggedIn = authId.isLoggedIn;
     const [data, setData] = useState([]);
 
+// Récuperer les données de tous les POSTS depuis la Base de donnée
     const url = "http://localhost:4000/api/posts/";
 
     const fetchData = useCallback(async() => {
@@ -31,7 +32,7 @@ export default function Home() {
       } catch(error) {
         console.log("error", error);
       }},[url]);   
-        
+ 
     useEffect(() => { 
       if(isLoggedIn){
         fetchData()

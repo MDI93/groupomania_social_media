@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import Card from './Post/Card'
 
 const Thread = ({ data }) => {
@@ -12,7 +11,7 @@ const Thread = ({ data }) => {
 
     return(
         <div className="Cards-container">
-            <StyledUl className="card-list-posts">
+            <ul className="card-list-posts">
             {posts &&
                 posts.map((post) => {
                     return <Card 
@@ -20,12 +19,8 @@ const Thread = ({ data }) => {
                         key={post._id}   
                         />
                 })}
-            </StyledUl>
+            </ul>
         </div>
     )
 }
 export default Thread;
-
-const StyledUl = styled.ul`
-       list-style-type: none;
-`

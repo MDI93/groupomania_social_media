@@ -1,0 +1,26 @@
+.delete-btn-container {
+    display: flex;
+    justify-content: center;
+    width: 40%;
+
+    .card-btn-delete {
+        color: #8186a0;
+        font-size: 18px;
+        border-radius: 20px;
+        height: 40px;
+        width: 40px;
+
+        &:hover {
+            color: red;
+            background-color: #FFD7D7;
+            cursor: pointer;
+            transform: scale(1.08);
+        }
+
+        ;
+    }
+
+    ;
+}
+
+;
