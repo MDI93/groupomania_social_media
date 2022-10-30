@@ -78,11 +78,14 @@ const ContainerLike = styled.div`
     display: flex;
     justify-content: left;
     align-items: center;
-    width: 15%;
+    width: 20%;
+    @media screen and (min-width: 320px) and (max-width: 600px){
+        width: 21%;
+    }
 `
 
 const StyledEmptyLikeBtn = styled.i`
-    font-size: 30px;
+    font-size: 22px;
     margin-left: 10px;
     color: #FD2D01;
     border-radius: 20px;
@@ -91,17 +94,32 @@ const StyledEmptyLikeBtn = styled.i`
         cursor: pointer;
         transform: scale(1.08);
     } 
+    @media screen and (min-width: 320px) and (max-width: 600px){
+        font-size: 17px;
+        margin-left: 10px;
+        padding: 5px;
+    }
 `
 const StyledFilledLikeBtn = styled.i`
-    font-size: 30px;
+    font-size: 22px;
     color: #FD2D01;
     margin-left: 10px;
     box-shadow: 2px 2px 10px red;
     border-radius: 20px;
+    padding: 5px;   
+    @media screen and (min-width: 320px) and (max-width: 600px){
+        font-size: 17px;
+        margin-left: 10px;
+    }
 `
 const UsersLiked = styled.span`
     display: flex;
     justify-content: center;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 16px;
+    margin-left: 20px
+    @media screen and (min-width: 320px) and (max-width: 600px){
+        font-size: 16px;
+        margin-left: 15px
+    }
 `
