@@ -87,9 +87,10 @@ const Card = ({ post }) => {
                 <span className="card-timeStamp">{dateParser(post.createdAt)}</span>
                 </header>
                 <div className="card-middle">
-                    <div className="card-img">
-                        <img className="img" src={postData.image} alt={updatePost ? ("Image choisit par l'utilisateur"):(null)} />
-                    </div>
+                { postData.image ?
+                    (<div className="card-img">
+                        <img className="img" src={postData.image} alt={ updatePost ? ("Image choisit par l'utilisateur"):(null)} />
+                    </div>) : null}
                     <div className="card-input-file-container">
                     { !updatePost ? ( null ) : 
                     (   <input  
@@ -133,7 +134,7 @@ const Card = ({ post }) => {
                                 onClick={modifyHandler} 
                                 className="card-btn-update-validate" 
                                 alt="Bouton pour modifier l'article">
-                                Valider
+                                <i class="fa-solid fa-circle-check"></i>
                             </button>
                         )}
                             <DeleteButton 
