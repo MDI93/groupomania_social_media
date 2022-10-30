@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 const FormNewPost = () => {
     const [formNewPostSubmit, setFormNewPostSubmit] = useState(false);
-    const [firstName, setFirstName] = useState();
-    const [lastName, setLastName] = useState();
-    const [message, setMessage] = useState();
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [message, setMessage] = useState('');
     const [image, setImage] = useState();
     const [error, setError] = useState(false);
     const navigate = useNavigate();
@@ -72,6 +72,7 @@ const FormNewPost = () => {
         setLastName('');
         setImage('');
         setMessage('');
+        setError('');
     }
 
     return (
@@ -84,29 +85,32 @@ const FormNewPost = () => {
             <div className="newpost-form-container">
                 <form action="" onSubmit={handleFormNewPost} className="newpost-form">
                     <h3 htmlFor="newPost">Créer un nouvel article</h3>
-                    <label htmlFor="firstName">Prénom</label>
+                    <div className="newpost-form-header">
+                        <label className="newpost-form-header-label" htmlFor="firstName">Prénom</label>
                         <input
-                            className="newpost-form-input"
+                            className="newpost-form-input-header"
                             type="text"
                             name="firstName"
                             onChange={(e) => setFirstName(e.target.value)}
                             value={firstName}
                         />
                         {error &&
-                        <span className="newpost-form-error">{error.emptyInput}</span>}
-                        <br/>
-                    <label htmlFor="lastName">Nom</label>
+                            <span className="newpost-form-error">{error.emptyInput}</span>
+                        }
+                        <label className="newpost-form-header-label" htmlFor="lastName">Nom</label>
                         <input
-                            className="newpost-form-input"
+                            className="newpost-form-input-header"
                             type="text"
                             name="lastName"
                             onChange={(e) => setLastName(e.target.value)}
                             value={lastName}
                         />
                         {error &&
-                        <span className="newpost-form-error">{error.emptyInput}</span>}
-                        <br/>
-                    <label htmlFor="image">Insérer une image</label>
+                            <span className="newpost-form-error">{error.emptyInput}</span>
+                        }
+                    </div>
+                    <div className="newpost-form-middle">   
+                        <label className="newpost-form-label-file" htmlFor="image">Insérer une image</label>
                         <input
                             className="newpost-form-input-file"
                             type="file"
@@ -114,32 +118,33 @@ const FormNewPost = () => {
                             onChange={changeHandler}
                             accept=".jpg, .jpeg, .png"
                         />
-                        <br/>
-                    <label htmlFor="message">Votre commentaire</label>
+                        <label className="newpost-form-label-textarea" htmlFor="message">Votre commentaire</label>
                         <textarea
                             className="newpost-form-textarea"
                             type="text"
                             name="message"
-                            placeholder=" Ecrivez votre message ici"
+                            placeholder=" Ecrivez votre message ici ..."
                             onChange={(e) => setMessage(e.target.value)}
                             value={message}
                         />
                         {error &&
-                        <span className="newpost-form-error">{error.emptyInput}</span>}
-                        <br />
-                        <div className="newpost-form-button-container">
-                            {firstName || lastName || message || image ? (
-                            <button className="newpost-form-btn-cancel" onClick={cancelPost}>
-                                Annuler
-                            </button>
-                            ) : null}
-                            <button type="submit" className="newpost-form-btn-submit">
-                                Envoyer <i className="fa-solid fa-paper-plane"></i>
-                            </button>
-                        </div>
-                        <br/>
-                    </form>
-                </div>
+                            <span className="newpost-form-error">{error.emptyInput}</span>
+                        }
+                    </div>
+                    
+                    <div className="newpost-form-button-container">
+                    {firstName || lastName || message || image ? (
+                        <button className="newpost-form-btn-cancel" onClick={cancelPost}>
+                            Annuler
+                        </button>
+                    ) : null}
+                    <button type="submit" className="newpost-form-btn-submit">
+                            Envoyer <i className="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <br/>
+                </form>
+            </div>
             )}
         </>
     )

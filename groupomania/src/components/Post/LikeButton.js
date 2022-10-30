@@ -85,6 +85,8 @@ const StyledEmptyLikeBtn = styled.i`
     font-size: 30px;
     margin-left: 10px;
     color: #FD2D01;
+    border-radius: 20px;
+    box-shadow: 2px 2px 10px red;
     &:hover {
         cursor: pointer;
         transform: scale(1.08);
@@ -94,6 +96,8 @@ const StyledFilledLikeBtn = styled.i`
     font-size: 30px;
     color: #FD2D01;
     margin-left: 10px;
+    box-shadow: 2px 2px 10px red;
+    border-radius: 20px;
 `
 const UsersLiked = styled.span`
     display: flex;
