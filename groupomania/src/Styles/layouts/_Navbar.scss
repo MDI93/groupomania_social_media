@@ -1,13 +1,15 @@
 .navbar-container {
     display: flex;
-    border-bottom: 3px solid #FD2D01;
+    border-bottom: 3px solid $color-primary;
     margin-bottom: 80px;
     padding: 10px;
+    background-color: $color-tertiary;
 
     .navbar-logo-container {
         display: flex;
         justify-content: center;
-        width: 30%;
+        width: 15%;
+        max-height: 25px;
 
         .navbar-logo.img {
             display: flex;
@@ -22,13 +24,14 @@
     .navbar-list-links {
         display: flex;
         justify-content: flex-end;
+        max-height: 25px;
 
         .navbar-link {
             display: flex;
             width: 30%;
 
             &:hover {
-                color: #FFD7D7;
+                color: $color-secondary;
                 transform: scale(1.1)
             }
 
@@ -38,10 +41,10 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                color: #8186a0;
+                color: $color-text-navbar;
 
                 &:hover {
-                    color: #FFD7D7;
+                    color: $color-secondary;
                     transform: scale(1.1)
                 }
 
@@ -51,6 +54,8 @@
                     display: flex;
                     justify-content: right;
                 }
+
+                ;
             }
 
             ;
@@ -64,9 +69,10 @@
 
     .navbar-logout {
         display: flex;
-        align-items: center ;
+        align-items: center;
         padding: 5px;
-        width: 10%;
+        width: 15%;
+        max-height: 25px;
     }
 
 }

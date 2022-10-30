@@ -1,0 +1,33 @@
+// Main colors
+
+$color-primary: #FD2D01;
+$color-secondary: #FFD7D7;
+$color-tertiary: #4E5166;
+
+// Util background-colors
+
+$background-color-form: #4E5166;
+$background-color-modal-auth: #5555;
+$background-color-card: #FFD7D7;
+$background-color-card2: white;
+$background-color-footer: #FD2D01;
+$background-color-footer2: white;
+
+// Util colors (errors, hover, settings...)
+
+$color-error: #FD2D01;
+$color-hover: #FFD7D7;
+$color-hover2: white;
+$color-settings: orange;
+
+// Util text colors
+
+$color-text-navbar: white;
+$color-text-input: #8186a0;
+$color-text-label-form: lighten(#FFD7D7,5);
+$color-text-modal-auth: lighten(#4E5166,5);
+$color-text-footer: white;
+
+// Shadow
+
+$shadow: 2px 2px 10px #999;

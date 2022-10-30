@@ -4,20 +4,25 @@
     align-items: center;
     margin-top: 120px;
     border-radius: 10px 10px;
-    background: linear-gradient(#FD2D01, white);
+    background: linear-gradient($background-color-footer, $background-color-footer2);
     height: 50px;
     bottom: 0;
 
     .footer-logo {
         display: flex;
-        align-items: center;
+        justify-content: center;
         size: 10px;
+        width: 30%;
+        height: 30px;
     }
 
     ;
 
     h5 {
-        color: white;
+        display: flex;
+        justify-content: center;
+        color: $color-text-footer;
+        width: 30%;
     }
 
     ;

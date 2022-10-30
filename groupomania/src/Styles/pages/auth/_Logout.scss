@@ -3,9 +3,10 @@
         display: flex;
         justify-content: flex-end;
         font-size: 22px;
+        color: $color-text-navbar;
 
         &:hover {
-            color: red;
+            color: $color-hover;
         }
 
         ;

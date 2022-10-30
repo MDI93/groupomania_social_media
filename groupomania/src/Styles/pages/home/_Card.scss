@@ -8,10 +8,10 @@
     .card {
         padding: 20px;
         border: 2px solid none;
-        background: linear-gradient(white, #FFD7D7);
-        box-shadow: 2px 2px 10px #FFD7D7;
+        background: linear-gradient($background-color-card2, $background-color-card);
+        box-shadow: 2px 2px 10px $color-secondary;
         border-radius: 20px 20px;
-        width: 60%;
+        width: 50%;
 
         .card-header {
             display: flex;
@@ -54,20 +54,16 @@
             justify-content: center;
 
             .card-img {
-                box-shadow: 5px 10px 10px #4E5166;
+                box-shadow: 5px 10px 10px $color-tertiary;
                 border-radius: 20px;
-                // padding: 5px;
-                // background-color: #4E5166;
                 max-width: 80%;
-                max-height: 330px;
-                // height: 100%;
+                max-height: 300px;
                 margin-bottom: 40px;
                 overflow: hidden;
 
                 img {
                     object-fit: cover;
                     border-radius: 20px;
-                    // width: 100%;
                     height: auto;
                     object-position: 100% 70%;
                 }
@@ -79,6 +75,7 @@
 
             .card-input-file-container {
                 display: flex;
+                width: 50%;
 
                 .card-input-file {
                     display: flex;
@@ -117,15 +114,16 @@
                 width: 30%;
 
                 .card-btn-update {
-                    color: #8186a0;
+                    color: $color-text-input;
                     font-size: 18px;
                     border-radius: 20px;
                     height: 40px;
                     width: 40px;
+                    box-shadow: 2px 2px 10px orange;
 
                     &:hover {
-                        color: white;
-                        background-color: orange;
+                        color: $color-hover2;
+                        background-color: $color-settings;
                         cursor: pointer;
                         transform: scale(1.08);
                     }
@@ -136,15 +134,15 @@
                 ;
 
                 .card-btn-update-validate {
-                    color: #8186a0;
+                    color: $color-text-input;
                     font-size: 18px;
                     border-radius: 20px;
                     height: 40px;
                     margin-right: 10px;
 
                     &:hover {
-                        color: white;
-                        background-color: orange;
+                        color: $color-hover2;
+                        background-color: $color-settings;
                         cursor: pointer;
                         transform: scale(1.08);
                     }
