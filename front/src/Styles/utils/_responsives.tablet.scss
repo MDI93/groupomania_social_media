@@ -1,291 +1,293 @@
 /* Responsive Tablet */
 
-@media screen and (min-width: 481px) and (max-width: 600px){
+@media screen and (min-width: 481px) and (max-width: 600px) {
+
     //------------ Navbar ------------>    
     .navbar-container {
-     margin-bottom: 40px;
-     padding: 5px;
- }
+        margin-bottom: 40px;
+        padding: 5px;
+    }
 
- ;
+    ;
 
- .navbar-logo-container {
-     min-height: 25px;
-     min-width: 25%;
- }
+    .navbar-logo-container {
+        min-height: 25px;
+        min-width: 25%;
+    }
 
- ;
+    ;
 
- .navbar-list-links {
-     justify-content: flex-end;
-     font-size: 12px;
+    .navbar-list-links {
+        justify-content: flex-end;
+        font-size: 12px;
 
-     .navbar-link {
-         min-width: 55%;
-     }
+        .navbar-link {
+            min-width: 55%;
+        }
 
-     ;
- }
+        ;
+    }
 
- ;
+    ;
 
- .logout-icon-container {
-     i {
-         font-size: 12px;
-     }
+    .logout-icon-container {
+        i {
+            font-size: 12px;
+        }
 
-     ;
- }
+        ;
+    }
 
- ;
+    ;
 
- //------------ Input modal ------------>  
+    //------------ Input modal ------------>  
 
- .form-container {
-     .form-link {
-         padding: 12px;
-         width: 30%;
-     }
+    .form-container {
+        .form-link {
+            padding: 12px;
+            width: 30%;
+        }
 
-     ;
- }
+        ;
+    }
 
- ;
+    ;
 
- //------------ Form login/signup ------------>  
+    //------------ Form login/signup ------------>  
 
- .form-login-container {
-     width: 70%;
-     padding: 5px;
-     font-size: 16px;
+    .form-login-container {
+        width: 70%;
+        padding: 5px;
+        font-size: 16px;
 
-     .form-input {
-         width: 75%;
-     }
+        .form-input {
+            width: 75%;
+        }
 
-     ;
+        ;
 
-     .form-input-submit {
-         width: 40%;
-         font-size: 16px;
-     }
+        .form-input-submit {
+            width: 40%;
+            font-size: 16px;
+        }
 
-     ;
- }
+        ;
+    }
 
- ;
+    ;
 
- //------------ Cards ------------> 
+    //------------ Cards ------------> 
 
- .card-container {
-     .card {
-         padding: 15px;
-         width: 75%;
+    .card-container {
+        .card {
+            padding: 15px;
+            width: 75%;
 
-         .card-header {
-             font-size: 12px;
+            .card-header {
+                font-size: 12px;
 
-             .card-header-name {
-                 h3 {
-                     font-size: 14px;
-                 }
+                .card-header-name {
+                    h3 {
+                        font-size: 14px;
+                    }
 
-                 ;
-             }
+                    ;
+                }
 
-             .card-timeStamp {
-                 font-size: 12px;
-             }
-         }
+                .card-timeStamp {
+                    font-size: 12px;
+                }
+            }
 
-         ;
+            ;
 
-         .card-middle {
-             .card-img {
-                 max-width: 90%;
-                 height: 160px;
-                 margin-bottom: 15px;
+            .card-middle {
+                .card-img {
+                    max-width: 90%;
+                    height: 160px;
+                    margin-bottom: 15px;
 
-                 img {
-                     height: 170px;
-                     object-position: 80% 10%;
-                 }
+                    img {
+                        height: 170px;
+                        object-position: 80% 10%;
+                    }
 
-                 ;
-             }
+                    ;
+                }
 
-             ;
+                ;
 
-             .card-input-file-container {
-                 width: auto;
-             }
+                .card-input-file-container {
+                    width: auto;
+                }
 
-             ;
+                ;
 
-             .card-message {
-                 margin-bottom: 15px;
-                 padding: 5px;
-                 font-size: 12px;
+                .card-message {
+                    margin-bottom: 15px;
+                    padding: 5px;
+                    font-size: 12px;
 
-                 .post-message {
-                     min-height: 60px;
-                     width: 100%;
-                 }
+                    .post-message {
+                        min-height: 60px;
+                        width: 100%;
+                    }
 
-                 ;
-             }
+                    ;
+                }
 
-             ;
-         }
+                ;
+            }
 
-         ;
+            ;
 
-         //------------ BTN update ------------>  
+            //------------ BTN update ------------>  
 
-         .card-btn-container {
-             .card-update-delete {
-                 .card-btn-update {
-                     font-size: 12px;
-                     height: 30px;
-                     width: 30px;
-                 }
+            .card-btn-container {
+                .card-update-delete {
+                    .card-btn-update {
+                        font-size: 12px;
+                        height: 30px;
+                        width: 30px;
+                    }
 
-                 ;
+                    ;
 
-                 .card-btn-update-validate {
-                     font-size: 16px;
-                     height: 30px;
-                 }
+                    .card-btn-update-validate {
+                        font-size: 16px;
+                        height: 30px;
+                    }
 
-                 ;
-             }
+                    ;
+                }
 
-             ;
-         }
+                ;
+            }
 
-         ;
+            ;
 
-     }
+        }
 
-     ;
+        ;
 
- }
+    }
 
- ;
+    ;
 
- //------------ BTN delete ------------> 
+    //------------ BTN delete ------------> 
 
- .delete-btn-container {
-     .card-btn-delete {
-         font-size: 12px;
-         height: 30px;
-         width: 30px;
-     }
+    .delete-btn-container {
+        .card-btn-delete {
+            font-size: 12px;
+            height: 30px;
+            width: 30px;
+        }
 
-     ;
- }
+        ;
+    }
 
- ;
+    ;
 
- //------------ Form new post ------------> 
+    //------------ Form new post ------------> 
 
- .newpost-form-container {
-     font-size: 16px;
-     .newpost-form {
-         width: 75%;
-     }
+    .newpost-form-container {
+        font-size: 16px;
 
-     ;
+        .newpost-form {
+            width: 75%;
+        }
 
-     h3 {
-         width: auto;
-     }
+        ;
 
-     ;
+        h3 {
+            width: auto;
+        }
 
-     .newpost-form-header {
-         flex-direction: column;
+        ;
 
-         .newpost-form-header-label {
-             width: auto;
-             margin: 8px;
-         }
+        .newpost-form-header {
+            flex-direction: column;
 
-         ;
+            .newpost-form-header-label {
+                width: auto;
+                margin: 8px;
+            }
 
-         .newpost-form-input-header {
-             width: auto;
-         }
+            ;
 
-         ;
-     }
+            .newpost-form-input-header {
+                width: auto;
+            }
 
-     ;
+            ;
+        }
 
-     .newpost-form-middle {
-         margin-bottom: 10px;
+        ;
 
-         .newpost-form-label-file {
-             width: auto;
-             margin-bottom: 10px;
-         }
+        .newpost-form-middle {
+            margin-bottom: 10px;
 
-         .newpost-form-input-file {
-             width: auto;
-             margin-bottom: 10px;
-         }
+            .newpost-form-label-file {
+                width: auto;
+                margin-bottom: 10px;
+            }
 
-         ;
+            .newpost-form-input-file {
+                width: auto;
+                margin-bottom: 10px;
+            }
 
-         .newpost-form-label-textarea {
-             width: auto;
-             margin-bottom: 10px;
-         }
+            ;
 
-         .newpost-form-textarea {
-             width: 95%;
-             margin-bottom: 5px;
-         }
+            .newpost-form-label-textarea {
+                width: auto;
+                margin-bottom: 10px;
+            }
 
-         ;
-     }
+            .newpost-form-textarea {
+                width: 95%;
+                margin-bottom: 5px;
+            }
 
-     .newpost-form-button-container {
-         .newpost-form-btn-cancel {
-             font-size: 16px;
-             width: 50%;
-         }
+            ;
+        }
 
-         ;
+        .newpost-form-button-container {
+            .newpost-form-btn-cancel {
+                font-size: 16px;
+                width: 50%;
+            }
 
-         .newpost-form-btn-submit {
-             font-size: 16px;
-             padding: 5px;
-             width: 50%;
-         }
+            ;
 
-         ;
-     }
+            .newpost-form-btn-submit {
+                font-size: 16px;
+                padding: 5px;
+                width: 50%;
+            }
 
-     ;
+            ;
+        }
 
- }
+        ;
 
- ;
+    }
 
- //------------ Footer ------------> 
+    ;
 
- .footer-container {
-     // position: absolute; 
- 
-     h5 {
-         width: auto;
-     }
- 
-     ;
- }
- 
- ;
+    //------------ Footer ------------> 
+
+    .footer-container {
+        // position: absolute; 
+
+        h5 {
+            width: auto;
+        }
+
+        ;
+    }
+
+    ;
 }
 
 ;

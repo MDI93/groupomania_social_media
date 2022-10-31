@@ -75,7 +75,10 @@ const Card = ({ post }) => {
     return(
         <li className="card-list" key={post._id}>
         {isLoading ? (
-            <i className="fas fa-spinner fa-spin"></i>
+            <div className="isLoading">
+                <i className="fas fa-spinner fa-spin"></i>
+            </div>
+            
         ) : (
             <div className="card-container">
               <div className="card">
@@ -137,7 +140,7 @@ const Card = ({ post }) => {
                                 onClick={modifyHandler} 
                                 className="card-btn-update-validate" 
                                 alt="Bouton pour modifier l'article">
-                                <i class="fa-solid fa-circle-check"></i>
+                                <i className="fa-solid fa-circle-check"></i>
                             </button>
                         )}
                             <DeleteButton 
