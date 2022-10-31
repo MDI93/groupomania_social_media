@@ -117,7 +117,10 @@ const Card = ({ post }) => {
                     </div>
                 </div>
                 <div className="card-btn-container">
-                    <LikeButton post={post} key={post._id}/>
+                    <LikeButton 
+                        post={post} 
+                        key={post._id}
+                    />
                     { authId.userId === post.userId || authId.role === "admin" ? (
                         <div className="card-update-delete">
                         { !updatePost ? (
@@ -139,7 +142,7 @@ const Card = ({ post }) => {
                         )}
                             <DeleteButton 
                                 id={post._id} 
-                                post={post}
+                                post={post}                 
                             />
                         </div>
                     ) : (null)}
