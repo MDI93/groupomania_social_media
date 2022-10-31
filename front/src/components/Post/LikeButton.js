@@ -78,10 +78,16 @@ const ContainerLike = styled.div`
     display: flex;
     justify-content: left;
     align-items: center;
-    width: 20%;
+    width: 23%;
     @media screen and (min-width: 320px) and (max-width: 600px){
         width: 21%;
-    }
+    };
+    @media screen and (min-width: 600px) and (max-width: 678px){
+        width: 17%;
+    };
+    @media screen and (min-width: 678px) and (max-width: 860px){
+        width: 16%;
+    };
 `
 
 const StyledEmptyLikeBtn = styled.i`
@@ -90,15 +96,15 @@ const StyledEmptyLikeBtn = styled.i`
     color: #FD2D01;
     border-radius: 20px;
     box-shadow: 2px 2px 10px red;
+    padding: 5px; 
     &:hover {
         cursor: pointer;
         transform: scale(1.08);
-    } 
+    };
     @media screen and (min-width: 320px) and (max-width: 600px){
         font-size: 17px;
         margin-left: 10px;
-        padding: 5px;
-    }
+    };
 `
 const StyledFilledLikeBtn = styled.i`
     font-size: 22px;
@@ -110,16 +116,24 @@ const StyledFilledLikeBtn = styled.i`
     @media screen and (min-width: 320px) and (max-width: 600px){
         font-size: 17px;
         margin-left: 10px;
-    }
+    };
 `
 const UsersLiked = styled.span`
     display: flex;
     justify-content: center;
     font-weight: bold;
     font-size: 16px;
-    margin-left: 20px
-    @media screen and (min-width: 320px) and (max-width: 600px){
+    margin-left: 10px;
+    @media screen and (min-width: 320px) and (max-width: 375px){
+        margin-left: 15px;
         font-size: 16px;
-        margin-left: 15px
+    };
+    @media screen and (min-width: 320px) and (max-width: 480px){
+        font-size: 16px;
+        margin-left: 12px
+    };
+    @media screen and (min-width: 678px) and (max-width: 860px){
+        font-size: 18px;
+        margin-left: 10px
     }
 `

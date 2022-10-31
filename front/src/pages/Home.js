@@ -40,12 +40,12 @@ export default function Home() {
     }, [isLoggedIn, fetchData])
     
     return( 
-        <>
+        <div className="home-container">
           {!isLoggedIn && <Navigate to='/' replace="true"/>}
           {isLoggedIn && (
               <Thread 
                 data={data} />
           )}
-        </>
+        </div>
     )
 };

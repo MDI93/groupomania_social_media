@@ -5,7 +5,7 @@ import {
     Route
   } from 'react-router-dom';
 import Auth from '../../pages/Auth';
-import Navbar from '../../components/Navbar'
+import Navbar from '../Navbar'
 import Home from '../../pages/Home';
 import NewPost from '../../pages/NewPost';
 
