@@ -15,7 +15,7 @@ const DeleteButton = ({ post }) => {
       headers:{
         Authorization: `Bearer ${authId.auth}`
       },
-      data: post.userId
+      data: post._id    
     })
     .then((res) => {
         console.log(res)
