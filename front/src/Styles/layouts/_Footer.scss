@@ -2,18 +2,19 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-top: 120px;
     border-radius: 10px 10px;
     background: linear-gradient($background-color-footer, $background-color-footer2);
-    height: 50px;
+    height: 30px;
     bottom: 0;
+    margin-top: 120px;
+    // position: absolute; 
 
     .footer-logo {
         display: flex;
         justify-content: center;
         size: 10px;
         width: 30%;
-        height: 30px;
+        height: 25px;
     }
 
     ;
