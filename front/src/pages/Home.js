@@ -44,7 +44,9 @@ export default function Home() {
           {!isLoggedIn && <Navigate to='/' replace="true"/>}
           {isLoggedIn && (
               <Thread 
-                data={data} />
+                data={data}
+                fetchData={fetchData} 
+              />
           )}
         </div>
     )

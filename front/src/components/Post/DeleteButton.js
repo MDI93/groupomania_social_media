@@ -2,12 +2,11 @@ import axios from 'axios';
 import React, { useContext, useState } from 'react'
 import { AuthUserContext } from '../../context/UserContext';
 
-const DeleteButton = ({ post }) => {
+const DeleteButton = ({ post, fetchData }) => {
   const authId = useContext(AuthUserContext);
   const isLoggedIn = authId.isLoggedIn;
   const [deletePost, setDeletePost] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
-
 
   const deleteHandler = (e) => {
 // Requête pour supprimer un POST
@@ -24,7 +23,7 @@ const DeleteButton = ({ post }) => {
       } else {
         setDeletePost(false);
         
-        window.location.reload();
+        fetchData();
       }
     })
     .catch((error) => console.log(error))

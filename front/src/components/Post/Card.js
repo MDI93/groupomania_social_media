@@ -4,13 +4,12 @@ import { dateParser } from "../Routes/utils";
 import DeleteButton from "./DeleteButton";
 import LikeButton from "./LikeButton";
 
-const Card = ({ post }) => {
+const Card = ({ post, fetchData }) => {
     const authId = useContext(AuthUserContext);
     const [isLoading, setIsLoading] = useState(true);
     const [postData, setPostData] = useState(post);
     const [updatePost, setUpdatePost] = useState(false);
     const [newImage, setNewImage] = useState();
-
 
     useEffect(() => {
         postData && 
@@ -58,9 +57,10 @@ const Card = ({ post }) => {
                 })
                 const responseData = await response.json();
                     if(response.ok) {
-                        console.log("response data ok", responseData)
                         setUpdatePost(false);
-                        postData.image = responseData.postObject.image;
+                        if( responseData.postObject.image ) {
+                            postData.image  = responseData.postObject.image;
+                        } 
                     } else {
                         console.log("Pas ok", responseData.error);  
                     }
@@ -71,7 +71,7 @@ const Card = ({ post }) => {
         }
         uploadHandler();
     }, [post._id, newImage, postData]);
-     
+
     return(
         <li className="card-list" key={post._id}>
         {isLoading ? (
@@ -145,7 +145,8 @@ const Card = ({ post }) => {
                         )}
                             <DeleteButton 
                                 id={post._id} 
-                                post={post}                 
+                                post={post} 
+                                fetchData={fetchData}                
                             />
                         </div>
                     ) : (null)}

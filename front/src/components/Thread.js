@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Card from './Post/Card'
 
-const Thread = ({ data }) => {
+const Thread = ({ data, fetchData }) => {
     const [dataThread, setDataThread] = useState(data, true);
     const posts = data.data;
 
@@ -16,7 +16,8 @@ const Thread = ({ data }) => {
                 posts.map((post) => {
                     return <Card 
                         post={post} 
-                        key={post._id}   
+                        key={post._id}
+                        fetchData={fetchData}   
                         />
                 })}
             </ul>
