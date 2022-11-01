@@ -51,12 +51,12 @@ const LoginForm = () => {
             <label htmlFor="login" className="form-label">Déjà enregistrer</label>
             <label htmlFor="email" className="form-label">Adresse e-mail</label>
             <input 
-                className="form-input"
+                className="form-input"    
                 type="text" 
                 name="email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-            />   
+            />
             <label htmlFor="email" className="form-label">Mot de passe</label>
             <input
                 className="form-input"

@@ -78,9 +78,9 @@ const ContainerLike = styled.div`
     display: flex;
     justify-content: left;
     align-items: center;
-    width: 23%;
+    width: 20%;
     @media screen and (min-width: 320px) and (max-width: 600px){
-        width: 21%;
+        width: 22%;
     };
     @media screen and (min-width: 600px) and (max-width: 678px){
         width: 17%;
