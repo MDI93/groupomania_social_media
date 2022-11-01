@@ -2,7 +2,7 @@
 
 @media screen and (min-width: 481px) and (max-width: 600px) {
 
-    //------------ Navbar ------------>    
+    ------ Navbar ------------>    
     .navbar-container {
         margin-bottom: 40px;
         padding: 5px;
@@ -392,7 +392,13 @@
             ;
 
             .newpost-form-input-header {
-                width: 100%;
+                display: flex;
+                justify-content: center;
+                width: auto;
+                border-radius: 15px 15px;
+                height: 30px;
+                margin: 0px 25px 5px 25px;
+                padding-left: 5px;
             }
 
             ;
