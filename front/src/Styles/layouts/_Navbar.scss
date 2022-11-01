@@ -1,7 +1,6 @@
 .navbar-container {
     display: flex;
     border-bottom: 3px solid $color-primary;
-    margin-bottom: 80px;
     padding: 10px;
     background-color: $color-tertiary;
 
@@ -28,7 +27,7 @@
 
         .navbar-link {
             display: flex;
-            width: 30%;
+            width: 20%;
 
             &:hover {
                 color: $color-secondary;

@@ -1,70 +1,90 @@
-.form-login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: $color-text-label-form;
-    background-color: $background-color-form;
-    font-size: 20px;
-    width: 400px;
-    min-height: 350px;
-    padding: 10px;
-    border-radius: 20px 20px;
-    box-shadow: $shadow;
+.auth-page {
+    height: 800px;
 
-    .form-label {
-        display: flex;
-        justify-content: center;
-        margin: 10px;
-    }
+    .log-container {
+        height: 800px;
 
-    ;
+        .form-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
 
-    .form-input {
-        width: 60%;
-        border-radius: 15px 15px;
-        min-height: 35px;
-        margin: 5px;
-    }
 
-    ;
+            .form-login-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: $color-text-label-form;
+                background-color: $background-color-form;
+                font-size: 20px;
+                width: 400px;
+                min-height: 350px;
+                padding: 10px;
+                border-radius: 20px 20px;
+                box-shadow: $shadow;
 
-    .form-input-submit {
-        color: $color-text-input;
-        font-size: 18px;
-        border-radius: 15px 15px;
-        height: 40px;
-        width: 40%; 
-        margin: 25px;
 
-        &:hover {
-            background-color: $color-hover;
-            cursor: pointer;
-            transform: scale(1.08);
+                .form-label {
+                    display: flex;
+                    justify-content: center;
+                    margin: 10px;
+                }
+
+                ;
+
+                .form-input {
+                    width: 60%;
+                    border-radius: 15px 15px;
+                    min-height: 35px;
+                    margin: 5px;
+                    padding-left: 5px;
+                }
+
+                ;
+
+                .form-input-submit {
+                    color: $color-text-input;
+                    font-size: 18px;
+                    border-radius: 15px 15px;
+                    height: 40px;
+                    width: 40%;
+                    margin: 20px;
+
+                    &:hover {
+                        background-color: $color-hover;
+                        cursor: pointer;
+                        transform: scale(1.08);
+                    }
+
+                    ;
+                }
+
+                ;
+
+                .form-error {
+                    display: flex;
+                    justify-content: center;
+                    color: $color-error;
+                    padding-bottom: 5px;
+                    font-size: 14px;
+                }
+
+                ;
+
+                .loading {
+                    display: flex;
+                    justify-content: center;
+                    font-size: 14px
+                }
+
+                ;
+
+            }
+
+            ;
         }
 
-        ;
     }
-
-    ;
-
-    .form-error {
-        display: flex;
-        justify-content: center;
-        color: $color-error;
-        padding-bottom: 5px;
-        font-size: 14px;
-    }
-
-    ;
-
-    .loading {
-        display: flex;
-        justify-content: center;
-    }
-
-    ;
-
 }
-
-;
