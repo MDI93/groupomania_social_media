@@ -1,5 +1,4 @@
 const Posts = require('../models/Posts');
-const FormData = require('form-data');
 const fs = require('fs');
 
 // Récuperer tous les 'posts' (READ)
@@ -69,7 +68,7 @@ exports.updatePost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     Posts.findOne({ _id: req.params.id })
         .then(post => {
-            if(post.userId !== req.auth.userId && post.userId === req.auth.role){
+            if(post.userId !== req.auth.userId &&  req.auth.role !== "admin"){
                 res.status(401).json({ message: 'Unauthorized !'});
             } else {
                 if(post.image){
