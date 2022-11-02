@@ -51,7 +51,7 @@ exports.updatePost = (req, res, next) => {
     delete postObject.userId;
     Posts.findOne({ _id: req.params.id })
         .then((post) => {
-            if(post.userId !== req.auth.userId && req.auth.role === "admin"){
+            if(post.userId !== req.auth.userId && req.auth.role !== "admin"){
                 res.status(401).json({ message: 'Unauthorized !' });
             } else {
                 Posts.updateOne(
